@@ -12,7 +12,7 @@
  * a plain const could not be redefined after initialization but object
  * properties do not have that restriction.
  */
-const data = {
+ const data = {
   // make copies of users (prevents changing from outside this module/file)
   users: require('../users.json').map(user => ({...user })),
   roles: ['customer', 'admin']
@@ -82,7 +82,15 @@ const getUser = (email, password) => {
  */
 const getUserById = userId => {
   // TODO: 8.4 Find user by user id
-  throw new Error('Not Implemented');
+  const userToFind = data.users.find(user => user._id === userId);
+  if(userToFind){
+    return {...userToFind };
+  }
+  else{
+    return undefined;
+  }
+  
+  //throw new Error('Not Implemented');
 };
 
 /**
@@ -94,7 +102,16 @@ const getUserById = userId => {
 const deleteUserById = userId => {
   // TODO: 8.4 Delete user with a given id
   // Hint: Array's findIndex() and splice() methods could be handy here.
-  throw new Error('Not Implemented');
+  const userToDelete = data.users.find(user => user._id === userId);
+  if(userToDelete){
+    const deleteIndex = data.users.findIndex((singleUser) => singleUser._id === userToDelete._id);
+    data.users.splice(deleteIndex);
+    return userToDelete;
+  }
+  else{
+    return undefined;
+  }
+  //throw new Error('Not Implemented');
 };
 
 /**
@@ -123,9 +140,11 @@ const saveNewUser = user => {
   // Use generateId() to assign a unique id to the newly created user.
   // throw new Error('Not Implemented');
   const newUser = {...user };
+  //console.log(newUser);
   newUser._id = generateId();
   if (!newUser.role) newUser.role = 'customer';
   data.users.push(newUser);
+  //console.log(data.users);
   return {...newUser };
 };
 
@@ -144,7 +163,21 @@ const saveNewUser = user => {
  */
 const updateUserRole = (userId, role) => {
   // TODO: 8.3 Update user's role
-  throw new Error('Not Implemented');
+  if(role === 'customer' || role === 'admin'){
+
+    const userToUpdateRole = data.users.find((user) => user._id === userId);
+    if(!userToUpdateRole){
+      return undefined;
+    }
+    const UserToUpdateIndex = data.users.findIndex((user) => user._id === userId);
+    data.users[UserToUpdateIndex].role = role;
+
+    return {...data.users[UserToUpdateIndex] };
+  }
+  else{
+    throw new Error('Unknown role');
+  }
+  //throw new Error('Not Implemented');
 };
 
 /**

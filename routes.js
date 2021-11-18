@@ -1,7 +1,9 @@
 const responseUtils = require('./utils/responseUtils');
-const { acceptsJson, isJson, parseBodyJson } = require('./utils/requestUtils');
+const { acceptsJson, isJson, parseBodyJson, getCredentials } = require('./utils/requestUtils');
 const { renderPublic } = require('./utils/render');
-const { emailInUse, getAllUsers, saveNewUser, validateUser } = require('./utils/users');
+const { emailInUse, getAllUsers, saveNewUser, validateUser, getUserById, deleteUserById, updateUserRole } = require('./utils/users');
+const { getCurrentUser } = require('./auth/auth');
+const productsFromJson = require('./products.json').map(product => ({...product }));
 
 /**
  * Known API routes and their allowed methods
@@ -11,7 +13,8 @@ const { emailInUse, getAllUsers, saveNewUser, validateUser } = require('./utils/
  */
 const allowedMethods = {
   '/api/register': ['POST'],
-  '/api/users': ['GET']
+  '/api/users': ['GET'],
+  '/api/products': ['GET']
 };
 
 /**
@@ -70,7 +73,58 @@ const handleRequest = async(request, response) => {
   if (matchUserId(filePath)) {
     // TODO: 8.6 Implement view, update and delete a single user by ID (GET, PUT, DELETE)
     // You can use parseBodyJson(request) from utils/requestUtils.js to parse request body
-    throw new Error('Not Implemented');
+
+
+    const methodOfRequest = method.toUpperCase();
+
+    const requestAuth = await getCredentials(request);
+    if(!requestAuth){
+      return responseUtils.basicAuthChallenge(response);
+    }
+
+    const authorizedUser = await getCurrentUser(request);
+    if(!authorizedUser){
+      return responseUtils.basicAuthChallenge(response);
+    }
+
+    if(authorizedUser.role === 'customer'){
+      return responseUtils.forbidden(response);
+    }
+
+    if(authorizedUser.role === 'admin'){
+      if(methodOfRequest === 'GET'){
+        const userIdToSearch = url.split("/api/users/");
+        const singleUser = await getUserById(userIdToSearch[1]);
+        if(singleUser === undefined){
+          return responseUtils.notFound(response);
+        }
+        return responseUtils.sendJson(response, singleUser, 200);
+      }
+      if(methodOfRequest === 'DELETE'){
+        const userIdToDelete = url.split("/api/users/");
+        const deletedUser = await deleteUserById(userIdToDelete[1]);
+        if(deletedUser === undefined){
+          return responseUtils.notFound(response);
+        }
+        return responseUtils.sendJson(response, deletedUser, 200);
+      }
+      if(methodOfRequest === 'PUT'){
+        const requestBody = await parseBodyJson(request);
+        if(!requestBody.role){
+          return responseUtils.badRequest(response, '400 Bad Request');
+        }
+        if(requestBody.role !== 'admin' && requestBody.role !== 'customer'){
+          return responseUtils.badRequest(response, '400 Bad Request');
+        }
+        const userIdToUpdate = url.split("/api/users/");
+        const updatedUser = await updateUserRole(userIdToUpdate[1], requestBody.role);
+        if(updatedUser === undefined){
+          return responseUtils.notFound(response);
+        }
+        return responseUtils.sendJson(response, updatedUser, 200);
+      }
+
+    }
   }
 
   // Default to 404 Not Found if unknown url
@@ -89,16 +143,48 @@ const handleRequest = async(request, response) => {
     return responseUtils.contentTypeNotAcceptable(response);
   }
 
+  // GET all products
+  if (filePath === '/api/products' && method.toUpperCase() === 'GET') {
+    const requestAuth = await getCredentials(request);
+    if(!requestAuth){
+      return responseUtils.basicAuthChallenge(response);
+    }
+
+    const authorizedUser = await getCurrentUser(request);
+    if(!authorizedUser){
+      return responseUtils.basicAuthChallenge(response);
+    }
+
+    if(authorizedUser.role === 'customer' || authorizedUser.role === 'admin'){
+      return responseUtils.sendJson(response, productsFromJson, 200);
+    }
+  }
+
   // GET all users
   if (filePath === '/api/users' && method.toUpperCase() === 'GET') {
-    // TODO 8.4 Replace the current code in this function.
+
+    // TODO: 8.5 Add authentication (only allowed to users with role "admin")
+    const requestAuth = await getCredentials(request);
+    if(!requestAuth){
+      return responseUtils.basicAuthChallenge(response);
+    }
+
+    const authorizedUser = await getCurrentUser(request);
+    if(!authorizedUser){
+      return responseUtils.basicAuthChallenge(response);
+    }
+
+    if(authorizedUser.role === 'customer'){
+      return responseUtils.forbidden(response);
+    }
+        // TODO 8.4 Replace the current code in this function.
     // First call getAllUsers() function to fetch the list of users.
     // Then you can use the sendJson(response, payload, code = 200) from 
     // ./utils/responseUtils.js to send the response in JSON format.
     //
-    // TODO: 8.5 Add authentication (only allowed to users with role "admin")
-    return await getAllUsers(response);
+    const allUsers = await getAllUsers();
 
+    return responseUtils.sendJson(response, allUsers, 200);
   }
 
   // register new user
@@ -107,11 +193,28 @@ const handleRequest = async(request, response) => {
     if (!isJson(request)) {
       return responseUtils.badRequest(response, 'Invalid Content-Type. Expected application/json');
     }
-
     // TODO: 8.4 Implement registration
     // You can use parseBodyJson(request) method from utils/requestUtils.js to parse request body.
-    // 
-    throw new Error('Not Implemented');
+
+    const parsedRequestBody =  await parseBodyJson(request);
+
+    const isEmailInUse = await emailInUse(parsedRequestBody.email);
+    if(isEmailInUse){
+      return responseUtils.badRequest(response, '400 Bad Request');
+    }
+
+    const notValidUser = await validateUser(parsedRequestBody);
+    if(notValidUser.includes('Missing name') || notValidUser.includes('Missing email') || notValidUser.includes('Missing password')|| notValidUser.includes('Unknown role')){
+      return responseUtils.badRequest(response, '400 Bad Request');
+    }
+
+    const newUser = await saveNewUser(parsedRequestBody);
+    if(newUser){
+      newUser.role = 'customer';
+      return responseUtils.createdResource(response, newUser, '201 Created');
+    }
+    
+    //throw new Error('Not Implemented');
   }
 };
 

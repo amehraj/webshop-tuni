@@ -2,6 +2,10 @@ const addToCart = (productId, productName) => {
   // TODO 9.2
   // use addProductToCart(), available already from /public/js/utils.js
   // /public/js/utils.js also includes createNotification() function
+  const addedProductId = addProductToCart(productId);
+
+  createNotification(`Added ${productName} to cart!`, 'notifications-container', true);
+
 };
 
 (async() => {
@@ -14,4 +18,42 @@ const addToCart = (productId, productName) => {
   //    * add product information to the template clone
   //    * remember to add an event listener for the button's 'click' event, and call addToCart() in the event listener's callback
   // - remember to add the products to the the page
+  const productsContainer = document.querySelector('#products-container');
+  const productTemplate = document.querySelector('#product-template');
+  try{
+    const products = await getJSON('/api/products');
+    //console.log(products);
+    if (products.length === 0) {
+      const p = document.createElement('p');
+      p.textContent = 'No Products';
+      productsContainer.append(p);
+      return;
+    }
+    products.forEach((product) => {
+      const { _id: id, name, description, price } = product;
+      const productContainer = productTemplate.content.cloneNode(true);
+
+      productContainer.querySelector('.product-name').id = `name-${id}`;
+      productContainer.querySelector('.product-name').textContent = name;
+      productContainer.querySelector('.product-description').id = `description-${id}`;
+      productContainer.querySelector('.product-description').textContent = description;
+      productContainer.querySelector('.product-price').id = `price-${id}`;
+      productContainer.querySelector('.product-price').textContent = price;
+      productContainer.querySelector('button').id = `add-to-cart-${id}`;
+      productContainer.querySelector('button').addEventListener('click', () => {
+        return addToCart(id, name);
+      })
+
+      productsContainer.append(productContainer);
+    })
+
+
+  } catch (error){
+    console.log(error);
+    return createNotification(
+      'There was an error while fetching products',
+      'notifications-container',
+      false
+    );
+  }
 })();

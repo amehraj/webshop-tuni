@@ -2,12 +2,26 @@ const addToCart = productId => {
   // TODO 9.2
   // use addProductToCart(), available already from /public/js/utils.js
   // call updateProductAmount(productId) from this file
+  const addedProductId = addProductToCart(productId);
+  updateProductAmount(productId);
 };
 
 const decreaseCount = productId => {
   // TODO 9.2
   // Decrease the amount of products in the cart, /public/js/utils.js provides decreaseProductCount()
   // Remove product from cart if amount is 0,  /public/js/utils.js provides removeElement = (containerId, elementId
+  const decreasedAmount = decreaseProductCount(productId);
+  //document.querySelector(`#amount-${productId}`).textContent = decreasedAmount + 'x';
+  updateProductAmount(productId);
+  if(decreasedAmount === 0){
+    removeElement('cart-container', `amount-${productId}`);
+    removeElement('cart-container', `price-${productId}`);
+    removeElement('cart-container', `name-${productId}`);
+    removeElement('cart-container', `minus-${productId}`);
+    removeElement('cart-container', `plus-${productId}`);
+    removeElement('cart-container', `item-row-${productId}`);
+  }
+  
 
 };
 
@@ -15,7 +29,11 @@ const updateProductAmount = productId => {
   // TODO 9.2
   // - read the amount of products in the cart, /public/js/utils.js provides getProductCountFromCart(productId)
   // - change the amount of products shown in the right element's innerText
-
+  console.log(productId);
+  const productCountFromCart = getProductCountFromCart(productId);
+  //console.log(productCountFromCart);
+  document.querySelector(`#amount-${productId}`).textContent = productCountFromCart + 'x';
+  //return productCountFromCart;
 };
 
 const placeOrder = async() => {
@@ -23,6 +41,19 @@ const placeOrder = async() => {
   // Get all products from the cart, /public/js/utils.js provides getAllProductsFromCart()
   // show the user a notification: /public/js/utils.js provides createNotification = (message, containerId, isSuccess = true)
   // for each of the products in the cart remove them, /public/js/utils.js provides removeElement(containerId, elementId)
+  const allProductsFromCart = await getAllProductsFromCart();
+  createNotification('Successfully created an order!', 'notifications-container', true);
+  console.log(allProductsFromCart);
+  allProductsFromCart.forEach((singleProduct) => {
+    const productId = singleProduct.name;
+    removeElement('cart-container', `amount-${productId}`);
+    removeElement('cart-container', `price-${productId}`);
+    removeElement('cart-container', `name-${productId}`);
+    removeElement('cart-container', `minus-${productId}`);
+    removeElement('cart-container', `plus-${productId}`);
+    removeElement('cart-container', `item-row-${productId}`);
+  })
+  clearCart();
 };
 
 (async() => {
@@ -49,5 +80,55 @@ const placeOrder = async() => {
   //          clone.querySelector('button').addEventListener('click', () => addToCart(productId, productName));
   //
   // - in the end remember to append the modified cart item to the cart 
+  const cartContainer = document.querySelector('#cart-container');
+  const cartItemTemplate = document.querySelector('#cart-item-template');
+  const placeOrderButton = document.querySelector('#place-order-button');
+  placeOrderButton.addEventListener('click', () => {
+    return placeOrder();
+  })
 
+  try{
+    const products = await getJSON('/api/products');
+    const allProductsFromCart = await getAllProductsFromCart();
+
+    if (allProductsFromCart.length === 0) {
+      const p = document.createElement('p');
+      p.textContent = 'No Items in Cart';
+      cartContainer.append(p);
+      return;
+    }
+    allProductsFromCart.forEach((product) => {
+      console.log(product);
+      const { name: id , amount } = product;
+
+      const productToFind = products.find(product => product._id === id);
+      const { name, price } = productToFind;
+      const cartTemplateContainer = cartItemTemplate.content.cloneNode(true);
+      cartTemplateContainer.querySelector('.item-row').id = `item-row-${id}`;
+      cartTemplateContainer.querySelector('.product-name').id = `name-${id}`;
+      cartTemplateContainer.querySelector('.product-name').textContent = name;
+      cartTemplateContainer.querySelector('.product-price').id = `price-${id}`;
+      cartTemplateContainer.querySelector('.product-price').textContent = price;
+      cartTemplateContainer.querySelector('.product-amount').id = `amount-${id}`;
+      cartTemplateContainer.querySelector('.product-amount').textContent = amount + 'x';
+      cartTemplateContainer.querySelectorAll('.cart-minus-plus-button')[0].id = `plus-${id}`;
+      cartTemplateContainer.querySelectorAll('.cart-minus-plus-button')[0].addEventListener('click', () => {
+        return addToCart(id);
+      })
+      cartTemplateContainer.querySelectorAll('.cart-minus-plus-button')[1].id = `minus-${id}`;
+      cartTemplateContainer.querySelectorAll('.cart-minus-plus-button')[1].addEventListener('click', () => {
+        return decreaseCount(id);
+      })
+
+      cartContainer.append(cartTemplateContainer);
+    })
+
+  } catch (error){
+    console.log(error);
+    return createNotification(
+      'There was an error while fetching products',
+      'notifications-container',
+      false
+    );
+  }
 })();

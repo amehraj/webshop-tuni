@@ -5,13 +5,24 @@
  * @param {http.incomingMessage} request
  * @returns {Array|null} [username, password] or null if header is missing
  */
-const getCredentials = request => {
+ const getCredentials = request => {
   // TODO: 8.5 Parse user credentials from the "Authorization" request header
   // NOTE: The header is base64 encoded as required by the http standard.
   //       You need to first decode the header back to its original form ("email:password").
   //  See: https://attacomsian.com/blog/nodejs-base64-encode-decode
   //       https://stackabuse.com/encoding-and-decoding-base64-strings-in-node-js/
-  throw new Error('Not Implemented');
+  
+  if(!request.headers.authorization){
+    return null;
+  }
+  if(request.headers.authorization.indexOf('Basic ') === -1){
+    return null;
+  }
+  const base64Credentials = request.headers.authorization.split(' ')[1];
+  const buff = Buffer.from(base64Credentials, 'base64').toString('ascii');
+  const user = buff.split(':');
+  return user;
+  //throw new Error('Not Implemented');
 };
 
 /**

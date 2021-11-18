@@ -5,7 +5,6 @@ const Schema = mongoose.Schema;
 // You can use SALT_ROUNDS when hashing the password with bcrypt.hashSync()
 const SALT_ROUNDS = 10;
 
-// You can use these SCHEMA_DEFAULTS when setting the validators for the User Schema. For example the default role can be accessed with SCHEMA_DEFAULTS.role.defaultValue
 const SCHEMA_DEFAULTS = {
   name: {
     minLength: 1,
@@ -24,6 +23,39 @@ const SCHEMA_DEFAULTS = {
   }
 };
 
+// You can use these SCHEMA_DEFAULTS when setting the validators for the User Schema. For example the default role can be accessed with SCHEMA_DEFAULTS.role.defaultValue
+function validatorName (val) {
+	if (val.length < SCHEMA_DEFAULTS.name.minLength || val.length > SCHEMA_DEFAULTS.name.maxLength) {
+		return false;
+	}
+	else if (val.substring(0, 1) === ' ' || val.substring(val.length-1, val.length) === ' '){
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+function validatorEmail(val) {
+	const re = SCHEMA_DEFAULTS.email.match;
+	return re.test(String(val).toLowerCase());
+}
+function validatorRole (val) {
+	if (val !== 'customer' && val !== 'admin') {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+function validatorPassword (val) {
+	if (val.length < SCHEMA_DEFAULTS.password.minLength || !val || val === '') {
+		return false;
+	}
+	else {
+		return true;
+	}
+}
+
 // TODO: 9.5 Implement the userSchema
 const userSchema = new Schema({
   // for 'name' 
@@ -31,8 +63,8 @@ const userSchema = new Schema({
   // and the following validators:
   // required, trim, minlength, maxlength 
   name: {
-
-  },
+    type: String, trim: true, validate: validatorName, required: true
+},
   // for 'email'
   // set type
   // and the following validators:
@@ -43,8 +75,8 @@ const userSchema = new Schema({
 
   //       
   email: {
-
-  },
+    type: String, validate: validatorEmail, required: true, index: { unique: true }
+},
   // for 'password'
   // set type
   // and the following validators:
@@ -56,15 +88,25 @@ const userSchema = new Schema({
   // }
   // 
   password: {
-
-  },
+    type: String,
+    required: true,
+    validate: validatorPassword,	
+    set: v => {if (v.length < 10 || !v || v === '') {
+          return v;
+          }
+          else {
+          return bcrypt.hashSync(v, bcrypt.genSaltSync(SALT_ROUNDS));
+          }
+    }
+},
   // for 'role'
   // set type
   // and the following validators:
   //  required, trim, lowercase, enum,    default
   role: {
+    type: String, lowercase: true, trim: true, default: SCHEMA_DEFAULTS.role.defaultValue, validate: validatorRole
+}
 
-  }
 });
 
 /**
@@ -74,13 +116,8 @@ const userSchema = new Schema({
  * @returns {Promise<boolean>} promise that resolves to the comparison result
  */
 userSchema.methods.checkPassword = async function(password) {
-  // TODO: 9.5 Implement this
-  // Here you should return the result you get from bcrypt.compare() function. Remember to await! :-)
-  // In this method you can just do a one-liner:
-  //   which returns the results of
-  //    - use BCrypt's compare() function. For its paramteres give:
-  //      - password as given as parameter to the call to this method
-  //      - the password of the user from the User model (this.password)[(this is one of the few places where we need to use 'this'].
+  return await bcrypt.compare(password, this.password);
+ 
 
 };
 

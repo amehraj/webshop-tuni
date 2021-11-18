@@ -33,7 +33,7 @@
  *       - Use createNotification() function from utils.js to create notifications
  */
 
-(async() => {
+ (async() => {
   const baseContainer = document.querySelector('#users-container');
   const modifyContainer = document.querySelector('#modify-user');
   const userTemplate = document.querySelector('#user-template');
