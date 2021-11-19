@@ -208,13 +208,14 @@ const handleRequest = async(request, response) => {
 
     const parsedRequestBody =  await parseBodyJson(request);
 
-    const isEmailInUse = await emailInUse(parsedRequestBody.email);
+    const isEmailInUse = await User.findOne({ email: parsedRequestBody.email }).exec();
+
     if(isEmailInUse){
       return responseUtils.badRequest(response, '400 Bad Request');
     }
 
-    const notValidUser = await validateUser(parsedRequestBody);
-    if(notValidUser.includes('Missing name') || notValidUser.includes('Missing email') || notValidUser.includes('Missing password')|| notValidUser.includes('Unknown role')){
+    //const notValidUser = await validateUser(parsedRequestBody);
+    if(!parsedRequestBody.name || !parsedRequestBody.email || !parsedRequestBody.password){
       return responseUtils.badRequest(response, '400 Bad Request');
     }
     const newUser = new User({ name: parsedRequestBody.name, email: parsedRequestBody.email, password: parsedRequestBody.password});
