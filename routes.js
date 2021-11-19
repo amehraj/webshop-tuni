@@ -192,9 +192,13 @@ const handleRequest = async(request, response) => {
     // Then you can use the sendJson(response, payload, code = 200) from 
     // ./utils/responseUtils.js to send the response in JSON format.
     //
-    const allUsers = await getAllUsers();
-
-    return responseUtils.sendJson(response, allUsers, 200);
+    try{
+      const allUsers = await User.find({});
+      return responseUtils.sendJson(response, allUsers, 200);
+    } catch(error){
+      console.log(error);
+    }
+    
   }
 
   // register new user
@@ -218,11 +222,14 @@ const handleRequest = async(request, response) => {
       return responseUtils.badRequest(response, '400 Bad Request');
     }
     const newUser = new User({ name: parsedRequestBody.name, email: parsedRequestBody.email, password: parsedRequestBody.password});
-    const createdUser = await newUser.save();
-    if(createdUser){
-      return responseUtils.createdResource(response, newUser, '201 Created');
+    try{
+      const createdUser = await newUser.save();
+      if(createdUser){
+        return responseUtils.createdResource(response, newUser, '201 Created');
+      }
+    } catch (error) {
+      console.log(error);
     }
-    
     //throw new Error('Not Implemented');
   }
 };
