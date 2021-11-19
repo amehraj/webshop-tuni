@@ -192,13 +192,9 @@ const handleRequest = async(request, response) => {
     // Then you can use the sendJson(response, payload, code = 200) from 
     // ./utils/responseUtils.js to send the response in JSON format.
     //
-    try{
-      const allUsers = await User.find({});
-      return responseUtils.sendJson(response, allUsers, 200);
-    } catch(error){
-      console.log(error);
-    }
-    
+    const allUsers = await User.find({});
+
+    return responseUtils.sendJson(response, allUsers, 200);
   }
 
   // register new user
