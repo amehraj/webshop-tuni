@@ -4,6 +4,7 @@ const { renderPublic } = require('./utils/render');
 const { emailInUse, getAllUsers, saveNewUser, validateUser, getUserById, deleteUserById, updateUserRole } = require('./utils/users');
 const { getCurrentUser } = require('./auth/auth');
 const productsFromJson = require('./products.json').map(product => ({...product }));
+const User = require('./models/user');
 
 /**
  * Known API routes and their allowed methods
@@ -94,19 +95,25 @@ const handleRequest = async(request, response) => {
     if(authorizedUser.role === 'admin'){
       if(methodOfRequest === 'GET'){
         const userIdToSearch = url.split("/api/users/");
-        const singleUser = await getUserById(userIdToSearch[1]);
-        if(singleUser === undefined){
+        const singleUser = await User.findOne({ _id: userIdToSearch[1] }).exec();
+        if(singleUser){
+          return responseUtils.sendJson(response, singleUser, 200);
+        }
+        else{
           return responseUtils.notFound(response);
         }
-        return responseUtils.sendJson(response, singleUser, 200);
+        
       }
       if(methodOfRequest === 'DELETE'){
         const userIdToDelete = url.split("/api/users/");
-        const deletedUser = await deleteUserById(userIdToDelete[1]);
-        if(deletedUser === undefined){
+        const deletedUser = await User.findOneAndDelete({ _id: userIdToDelete[1] }).exec();
+        if(deletedUser){
+          return responseUtils.sendJson(response, deletedUser, 200);
+        }
+        else{
           return responseUtils.notFound(response);
         }
-        return responseUtils.sendJson(response, deletedUser, 200);
+        
       }
       if(methodOfRequest === 'PUT'){
         const requestBody = await parseBodyJson(request);
@@ -117,11 +124,14 @@ const handleRequest = async(request, response) => {
           return responseUtils.badRequest(response, '400 Bad Request');
         }
         const userIdToUpdate = url.split("/api/users/");
-        const updatedUser = await updateUserRole(userIdToUpdate[1], requestBody.role);
-        if(updatedUser === undefined){
+        const updatedUser = await User.findOneAndUpdate({ _id: userIdToUpdate[1]}, { role: requestBody.role }, { new: true });
+        if(updatedUser){
+          return responseUtils.sendJson(response, updatedUser, 200);
+        }
+        else{
           return responseUtils.notFound(response);
         }
-        return responseUtils.sendJson(response, updatedUser, 200);
+        
       }
 
     }
@@ -207,10 +217,9 @@ const handleRequest = async(request, response) => {
     if(notValidUser.includes('Missing name') || notValidUser.includes('Missing email') || notValidUser.includes('Missing password')|| notValidUser.includes('Unknown role')){
       return responseUtils.badRequest(response, '400 Bad Request');
     }
-
-    const newUser = await saveNewUser(parsedRequestBody);
-    if(newUser){
-      newUser.role = 'customer';
+    const newUser = new User({ name: parsedRequestBody.name, email: parsedRequestBody.email, password: parsedRequestBody.password});
+    const createdUser = await newUser.save();
+    if(createdUser){
       return responseUtils.createdResource(response, newUser, '201 Created');
     }
     

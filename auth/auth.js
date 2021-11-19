@@ -5,7 +5,8 @@
  * @returns {Object|null} current authenticated user or null if not yet authenticated
  */
  const requestUtils = require('../utils/requestUtils');
- const users = require('../utils/users');
+ const User = require('../models/user');
+ const bcrypt = require('bcryptjs');
  const getCurrentUser = async request => {
    // TODO: 8.5 Implement getting current user based on the "Authorization" request header
  
@@ -13,18 +14,24 @@
    // and getUser(email, password) function from utils/users.js to get the currently
    // logged in user
    //console.log(request);
+
    const credentials = requestUtils.getCredentials(request);
    if(!credentials){
      return null;
    }
-   //console.log(credentials);
-   const loggedUser = await users.getUser(credentials[0], credentials[1]);
-   if(!loggedUser){
-     return null;
-   }
-   //console.log(loggedUser);
-   //throw new Error('Not Implemented');
-   return loggedUser;
+
+  try{
+    const dbUser = await User.findOne({ email: credentials[0] }).exec();
+    //const match = await bcrypt.compare(credentials[1], dbUser.password);
+    const match = await dbUser.checkPassword(credentials[1]);
+    if(match){
+      return dbUser;
+    }
+  }
+  catch(error){
+      return null;
+  }
+  
  };
  
  module.exports = { getCurrentUser };
