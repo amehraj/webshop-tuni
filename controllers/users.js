@@ -27,7 +27,7 @@ const getAllUsers = async response => {
  */
 const deleteUser = async(response, userId, currentUser) => {
   // TODO: 10.2 Implement this
-  if(currentUser._id === userId){
+  if(currentUser.id === userId){
     return responseUtils.badRequest(response, '400 Bad Request');
   }
   if(currentUser.role === 'customer'){
@@ -60,7 +60,7 @@ const deleteUser = async(response, userId, currentUser) => {
  */
 const updateUser = async(response, userId, currentUser, userData) => {
   // TODO: 10.2 Implement this
-  if(currentUser._id === userId){
+  if(currentUser.id === userId){
     return responseUtils.badRequest(response, '400 Bad Request');
   }
   if(currentUser.role === 'customer'){
