@@ -64,7 +64,7 @@ const updateUser = async(response, userId, currentUser, userData) => {
     return responseUtils.forbidden(response);
   }
   if(currentUser.id === userId){
-    return responseUtils.badRequest(response, { error: '400 Bad Request' });
+    return responseUtils.badRequest(response, 'Updating own data is not allowed');
   }
   if(!userData.role){
     return responseUtils.badRequest(response, '400 Bad Request');
