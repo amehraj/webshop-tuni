@@ -22,7 +22,6 @@ const addToCart = (productId, productName) => {
   const productTemplate = document.querySelector('#product-template');
   try{
     const products = await getJSON('/api/products');
-    //console.log(products);
     if (products.length === 0) {
       const p = document.createElement('p');
       p.textContent = 'No Products';

@@ -29,9 +29,7 @@ const updateProductAmount = productId => {
   // TODO 9.2
   // - read the amount of products in the cart, /public/js/utils.js provides getProductCountFromCart(productId)
   // - change the amount of products shown in the right element's innerText
-  console.log(productId);
   const productCountFromCart = getProductCountFromCart(productId);
-  //console.log(productCountFromCart);
   document.querySelector(`#amount-${productId}`).textContent = productCountFromCart + 'x';
   //return productCountFromCart;
 };
@@ -43,7 +41,6 @@ const placeOrder = async() => {
   // for each of the products in the cart remove them, /public/js/utils.js provides removeElement(containerId, elementId)
   const allProductsFromCart = await getAllProductsFromCart();
   createNotification('Successfully created an order!', 'notifications-container', true);
-  console.log(allProductsFromCart);
   allProductsFromCart.forEach((singleProduct) => {
     const productId = singleProduct.name;
     removeElement('cart-container', `amount-${productId}`);
@@ -98,7 +95,6 @@ const placeOrder = async() => {
       return;
     }
     allProductsFromCart.forEach((product) => {
-      console.log(product);
       const { name: id , amount } = product;
 
       const productToFind = products.find(product => product._id === id);
