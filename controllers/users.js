@@ -133,6 +133,10 @@ const registerUser = async(response, userData) => {
     if(!userData.name || !userData.email || !userData.password){
       return responseUtils.badRequest(response, '400 Bad Request');
     }
+    if(userData.password.length < 10){
+      return responseUtils.badRequest(response, '400 Bad Request');
+    }
+    
     const newUser = new User({ name: userData.name, email: userData.email, password: userData.password});
     const createdUser = await newUser.save();
     if(createdUser){

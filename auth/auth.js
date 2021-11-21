@@ -26,6 +26,9 @@
     if(match){
       return currentUser;
     }
+    else {
+      return null;
+    }
   }
   catch(error){
       return null;
