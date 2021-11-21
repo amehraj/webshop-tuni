@@ -6,7 +6,6 @@
  */
  const requestUtils = require('../utils/requestUtils');
  const User = require('../models/user');
- const bcrypt = require('bcryptjs');
  const getCurrentUser = async request => {
    // TODO: 8.5 Implement getting current user based on the "Authorization" request header
  
@@ -21,8 +20,7 @@
 
   try{
     const currentUser = await User.findOne({ email: credentials[0] }).exec();
-    //const match = await currentUser.checkPassword(credentials[1]);
-    const match = await bcrypt.compare(credentials[1], currentUser.password);
+    const match = await currentUser.checkPassword(credentials[1]);
     if(match){
       return currentUser;
     }

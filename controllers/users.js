@@ -60,11 +60,11 @@ const deleteUser = async(response, userId, currentUser) => {
  */
 const updateUser = async(response, userId, currentUser, userData) => {
   // TODO: 10.2 Implement this
-  if(currentUser.id === userId){
-    return responseUtils.badRequest(response, '400 Bad Request');
-  }
   if(currentUser.role === 'customer'){
     return responseUtils.forbidden(response);
+  }
+  if(currentUser.id === userId){
+    return responseUtils.badRequest(response, '400 Bad Request');
   }
   if(!userData.role){
     return responseUtils.badRequest(response, '400 Bad Request');
@@ -136,7 +136,11 @@ const registerUser = async(response, userData) => {
     if(userData.password.length < 10){
       return responseUtils.badRequest(response, '400 Bad Request');
     }
-    
+    const regExpEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    const checkIfValidEmail = regExpEmail.test(userData.email);
+    if(!checkIfValidEmail){
+      return responseUtils.badRequest(response, '400 Bad Request');
+    }
     const newUser = new User({ name: userData.name, email: userData.email, password: userData.password});
     const createdUser = await newUser.save();
     if(createdUser){

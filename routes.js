@@ -96,7 +96,7 @@ const handleRequest = async(request, response) => {
           return updateUser(response,userIdToUpdate[1], currentUser, requestBody);        
       }
     } catch(error) {
-      return null;
+      return error;
     }
   }
 
@@ -128,7 +128,7 @@ const handleRequest = async(request, response) => {
         return getAllProducts(response);
       }
     } catch (error) {
-      return null;
+      return error;
     }
   }
 
@@ -145,7 +145,7 @@ const handleRequest = async(request, response) => {
         return responseUtils.forbidden(response);
       }
     } catch (error) {
-      return null;
+      return error;
     }
         // TODO 8.4 Replace the current code in this function.
     // First call getAllUsers() function to fetch the list of users.
@@ -167,7 +167,7 @@ const handleRequest = async(request, response) => {
       const parsedRequestBody =  await parseBodyJson(request);
       return registerUser(response, parsedRequestBody);
     } catch (error) {
-      return null;
+      return error;
     }
     //throw new Error('Not Implemented');
   }
