@@ -36,14 +36,17 @@ const resetUsers = () => {
  */
 const generateId = () => {
   let id;
-
-  do {
+  data.users.forEach((user) => {
+    if(user.id === id);
+    id = Math.random().toString(36).substr(2, 9);
+  });
+  // do {
     // Generate unique random id that is not already in use
     // Shamelessly borrowed from a Gist. See:
     // https://gist.github.com/gordonbrander/2230317
 
-    id = Math.random().toString(36).substr(2, 9);
-  } while (data.users.some(u => u._id === id));
+    
+  // } while (data.users.some(u => u._id === id));
 
   return id;
 };
