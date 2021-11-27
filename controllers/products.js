@@ -74,4 +74,24 @@ const updateProduct = async(response, productId, currentUser, productData) => {
   }
 };
 
-module.exports = { getAllProducts, viewProduct, deleteProduct, updateProduct };
+const createProduct = async(response, productData, currentUser) => {
+  if(currentUser.role === 'customer'){
+    return responseUtils.forbidden(response);
+  }
+  try{
+    if(!productData.name || !productData.price){
+      return responseUtils.badRequest(response, '400 Bad Request');
+    }
+    const newProduct = new Product(productData);
+    const createdProduct = await newProduct.save();
+    if(createdProduct){
+        return responseUtils.createdResource(response, newProduct, '201 Created');
+    }
+
+  } catch (error) {
+    return error;
+  }
+
+};
+
+module.exports = { getAllProducts, viewProduct, deleteProduct, updateProduct, createProduct };
