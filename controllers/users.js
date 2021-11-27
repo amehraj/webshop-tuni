@@ -15,15 +15,15 @@ const getAllUsers = async response => {
   catch(error){
     return error;
   }
-  //throw new Error('Not Implemented');
 };
 
 /**
  * Delete user and send deleted user as JSON
  *
- * @param {http.ServerResponse} response
- * @param {string} userId
- * @param {Object} currentUser (mongoose document object)
+ * @param {http.ServerResponse} response http response
+ * @param {string} userId user ID as String
+ * @param {object} currentUser (mongoose document object)
+
  */
 const deleteUser = async(response, userId, currentUser) => {
   // TODO: 10.2 Implement this
@@ -47,16 +47,15 @@ const deleteUser = async(response, userId, currentUser) => {
       return error;
     }
   }
-  //throw new Error('Not Implemented');
 };
 
 /**
  * Update user and send updated user as JSON
  *
- * @param {http.ServerResponse} response
- * @param {string} userId
- * @param {Object} currentUser (mongoose document object)
- * @param {Object} userData JSON data from request body
+ * @param {http.ServerResponse} response http response
+ * @param {string} userId User ID as String
+ * @param {object} currentUser (mongoose document object)
+ * @param {object} userData JSON data from request body
  */
 const updateUser = async(response, userId, currentUser, userData) => {
   // TODO: 10.2 Implement this
@@ -85,14 +84,13 @@ const updateUser = async(response, userId, currentUser, userData) => {
       return error;
     }
   }
-  //throw new Error('Not Implemented');
 };
 
 /**
  * Send user data as JSON
  *
- * @param {http.ServerResponse} response
- * @param {string} userId
+ * @param {http.ServerResponse} response http response
+ * @param {string} userId User ID as String
  * @param {Object} currentUser (mongoose document object)
  */
 const viewUser = async(response, userId, currentUser) => {
@@ -114,14 +112,13 @@ const viewUser = async(response, userId, currentUser) => {
       return error;
     }
   }
-  //throw new Error('Not Implemented');
 };
 
 /**
  * Register new user and send created user back as JSON
  *
- * @param {http.ServerResponse} response
- * @param {Object} userData JSON data from request body
+ * @param {http.ServerResponse} response http response
+ * @param {object} userData JSON data from request body
  */
 const registerUser = async(response, userData) => {
   // TODO: 10.2 Implement this
@@ -150,7 +147,6 @@ const registerUser = async(response, userData) => {
   } catch (error) {
     return error;
   }
-  //throw new Error('Not Implemented');
 
 };
 
