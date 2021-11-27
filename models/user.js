@@ -36,8 +36,8 @@ const validatorName = (val) => {
 	}
 };
 const validatorEmail = (val) => {
-	const re = SCHEMA_DEFAULTS.email.match;
-	return re.test(String(val).toLowerCase());
+	const regexString = SCHEMA_DEFAULTS.email.match;
+	return regexString.test(String(val).toLowerCase());
 };
 const validatorRole = (val) => {
 	if (val !== 'customer' && val !== 'admin') {

@@ -2,7 +2,7 @@ const responseUtils = require('./utils/responseUtils');
 const { acceptsJson, isJson, parseBodyJson } = require('./utils/requestUtils');
 const { renderPublic } = require('./utils/render');
 const { getCurrentUser } = require('./auth/auth');
-const { getAllProducts, viewProduct } = require('./controllers/products');
+const { getAllProducts, viewProduct, deleteProduct, updateProduct } = require('./controllers/products');
 const { getAllUsers, viewUser, deleteUser, updateUser, registerUser } = require('./controllers/users');
 
 /**
@@ -119,6 +119,15 @@ const handleRequest = async(request, response) => {
     if(methodOfRequest === 'GET'){
       const productIdToSearch = url.split("/api/products/");
       return viewProduct(response, productIdToSearch[1], currentUser);
+    }
+    if(methodOfRequest === 'DELETE'){
+      const productIdToDelete = url.split("/api/products/");
+      return deleteProduct(response, productIdToDelete[1], currentUser);
+    }
+    if(methodOfRequest === 'PUT'){
+      const requestBody = await parseBodyJson(request);
+      const productIdToUpdate = url.split("/api/products/");
+      return updateProduct(response, productIdToUpdate[1], currentUser, requestBody);
     }
   }
 
