@@ -29,32 +29,26 @@ describe('Products Test', () => {
       expect(product.name).to.equal('Handmade Concrete Table');
     });
   });
-  describe('getAllProducts()', () => {
-    it('should respond with status 200', async () => {
-      const response = createResponse();
-      await getAllProducts(response);
-      expect(response.statusCode).to.equal(200);
-
+  describe('Search Products 2' , () => {
+    it('Get product Small Metal Mouse', async () => {
+      const product = products.find(product => product.name === 'Small Metal Mouse');
+      expect(product.name).to.equal('Small Metal Mouse');
     });
-    it('should get header application/json', async () => {
-      const response = createResponse();
-      await getAllProducts(response);
-      expect(response.getHeader('content-type')).to.equal('application/json');
+    it('Get product Small Metal Mouse', async () => {
+      const product = products.find(product => product.name === 'Generic Wooden Chips');
+      expect(product.name).to.equal('Generic Wooden Chips');
     });
-    it('should respond with JSON', async () => {
-      const response = createResponse();
-      await getAllProducts(response);
-      expect(response._isJSON()).to.be.true;
+    it('Get product Rustic Wooden Pizza', async () => {
+      const product = products.find(product => product.name === 'Rustic Wooden Pizza');
+      expect(product.name).to.equal('Rustic Wooden Pizza');
     });
-    it('reponse JSON data is an array', async () => {
-      const response = createResponse();
-      await getAllProducts(response);
-      expect(response._getJSONData()).to.be.an('array');
+    it('Get product Fantastic Frozen Chicken', async () => {
+      const product = products.find(product => product.name === 'Fantastic Frozen Chicken');
+      expect(product.name).to.equal('Fantastic Frozen Chicken');
     });
-    it('End called', async () => {
-      const response = createResponse();
-      await getAllProducts(response);
-      expect(response._isEndCalled()).to.be.true;
+    it('Get product Handmade Concrete Table', async () => {
+      const product = products.find(product => product.name === 'Handmade Concrete Table');
+      expect(product.name).to.equal('Handmade Concrete Table');
     });
   });
 });
