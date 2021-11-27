@@ -2,7 +2,7 @@
  * Get current user based on the request headers
  *
  * @param {http.IncomingMessage} request
- * @returns {Object|null} current authenticated user or null if not yet authenticated
+ * @returns {object|null} current authenticated user or null if not yet authenticated
  */
  const requestUtils = require('../utils/requestUtils');
  const User = require('../models/user');
