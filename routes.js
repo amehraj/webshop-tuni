@@ -4,6 +4,7 @@ const { renderPublic } = require('./utils/render');
 const { getCurrentUser } = require('./auth/auth');
 const { getAllProducts, viewProduct, deleteProduct, updateProduct, createProduct } = require('./controllers/products');
 const { getAllUsers, viewUser, deleteUser, updateUser, registerUser } = require('./controllers/users');
+const { getAllOrders, viewOrder } = require('./controllers/orders');
 
 /**
  * Known API routes and their allowed methods
@@ -14,7 +15,8 @@ const { getAllUsers, viewUser, deleteUser, updateUser, registerUser } = require(
 const allowedMethods = {
   '/api/register': ['POST'],
   '/api/users': ['GET'],
-  '/api/products': ['GET', 'POST']
+  '/api/products': ['GET', 'POST'],
+  '/api/orders' : ['GET']
 };
 
 /**
@@ -130,6 +132,20 @@ const handleRequest = async(request, response) => {
       return updateProduct(response, productIdToUpdate[1], currentUser, requestBody);
     }
   }
+  if(matchOrdertId(filePath)) {
+    const methodOfRequest = method.toUpperCase();
+    const currentUser = await getCurrentUser(request);
+    if(!currentUser){
+      return responseUtils.basicAuthChallenge(response);
+    }
+    if(request.headers.accept !== 'application/json'){
+      return responseUtils.contentTypeNotAcceptable(response);
+    }
+    if(methodOfRequest === 'GET'){
+      const orderIdToSearch = url.split("/api/orders/");
+      return viewOrder(response, orderIdToSearch[1], currentUser);
+    }
+  }
   if (filePath === '/api/products' && method.toUpperCase() === 'POST') {
     const currentUser = await getCurrentUser(request);
     if(!currentUser){
@@ -161,10 +177,18 @@ const handleRequest = async(request, response) => {
   if (!acceptsJson(request)) {
     return responseUtils.contentTypeNotAcceptable(response);
   }
-
+  //GET all orders
+  if (filePath === '/api/orders' && method.toUpperCase() === 'GET') {
+      const currentUser = await getCurrentUser(request);
+      if(!currentUser){
+        return responseUtils.basicAuthChallenge(response);
+      }
+      if(currentUser.role === 'customer' || currentUser.role === 'admin'){
+        return getAllOrders(response, currentUser);
+      }
+  }
   // GET all products
   if (filePath === '/api/products' && method.toUpperCase() === 'GET') {
-    try{
       const currentUser = await getCurrentUser(request);
       if(!currentUser){
         return responseUtils.basicAuthChallenge(response);
@@ -173,16 +197,12 @@ const handleRequest = async(request, response) => {
         // return responseUtils.sendJson(response, productsFromJson, 200);
         return getAllProducts(response);
       }
-    } catch (error) {
-      return error;
-    }
   }
 
   // GET all users
   if (filePath === '/api/users' && method.toUpperCase() === 'GET') {
 
     // TODO: 8.5 Add authentication (only allowed to users with role "admin")
-    try{
       const currentUser = await getCurrentUser(request);
       if(!currentUser){
         return responseUtils.basicAuthChallenge(response);
@@ -190,9 +210,6 @@ const handleRequest = async(request, response) => {
       if(currentUser.role === 'customer'){
         return responseUtils.forbidden(response);
       }
-    } catch (error) {
-      return error;
-    }
         // TODO 8.4 Replace the current code in this function.
     // First call getAllUsers() function to fetch the list of users.
     // Then you can use the sendJson(response, payload, code = 200) from 

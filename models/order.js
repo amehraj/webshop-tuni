@@ -45,5 +45,7 @@ const orderSchema = new Schema({
     }
 });
 
+orderSchema.set('toJSON', { virtuals: false, versionKey: false });
+
 const Order = new mongoose.model('Order', orderSchema);
 module.exports = Order;
