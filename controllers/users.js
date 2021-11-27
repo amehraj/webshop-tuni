@@ -91,7 +91,7 @@ const updateUser = async(response, userId, currentUser, userData) => {
  *
  * @param {http.ServerResponse} response http response
  * @param {string} userId User ID as String
- * @param {Object} currentUser (mongoose document object)
+ * @param {object} currentUser (mongoose document object)
  */
 const viewUser = async(response, userId, currentUser) => {
   // TODO: 10.2 Implement this
