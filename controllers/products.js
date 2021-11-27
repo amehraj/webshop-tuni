@@ -3,7 +3,6 @@
  *
  * @param {http.ServerResponse} response
  */
-// const productsFromJson = require('../products.json').map(product => ({...product }));
 const Product = require('../models/product');
 const responseUtils = require('../utils/responseUtils');
 const getAllProducts = async response => {
@@ -13,4 +12,24 @@ const getAllProducts = async response => {
   //throw new Error('Not Implemented');
 };
 
-module.exports = { getAllProducts };
+const viewProduct = async(response, productId, currentUser) => {
+  if(currentUser.role === 'admin' || currentUser.role === 'customer'){
+    try {
+      const singleProduct = await Product.findOne({ _id: productId }).exec();
+      console.log(singleProduct);
+      if(singleProduct){
+            console.log(singleProduct);
+            return responseUtils.sendJson(response, singleProduct, 200);
+      }
+      else{
+        return responseUtils.notFound(response);
+      }
+
+    } catch(error) {
+      return error;
+    }
+  }
+  //throw new Error('Not Implemented');
+};
+
+module.exports = { getAllProducts, viewProduct };

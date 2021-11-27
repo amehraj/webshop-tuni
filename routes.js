@@ -2,7 +2,7 @@ const responseUtils = require('./utils/responseUtils');
 const { acceptsJson, isJson, parseBodyJson } = require('./utils/requestUtils');
 const { renderPublic } = require('./utils/render');
 const { getCurrentUser } = require('./auth/auth');
-const { getAllProducts } = require('./controllers/products');
+const { getAllProducts, viewProduct } = require('./controllers/products');
 const { getAllUsers, viewUser, deleteUser, updateUser, registerUser } = require('./controllers/users');
 
 /**
@@ -83,7 +83,7 @@ const handleRequest = async(request, response) => {
     // You can use parseBodyJson(request) from utils/requestUtils.js to parse request body
 
     const methodOfRequest = method.toUpperCase();
-    try{
+    
       const currentUser = await getCurrentUser(request);
       if(!currentUser){
         return responseUtils.basicAuthChallenge(response);
@@ -95,7 +95,6 @@ const handleRequest = async(request, response) => {
           const userIdToSearch = url.split("/api/users/");
           return viewUser(response, userIdToSearch[1], currentUser);
       }
-
       if(methodOfRequest === 'DELETE'){
           const userIdToDelete = url.split("/api/users/");
           return deleteUser(response, userIdToDelete[1], currentUser);
@@ -104,10 +103,22 @@ const handleRequest = async(request, response) => {
       if(methodOfRequest === 'PUT'){
           const requestBody = await parseBodyJson(request);
           const userIdToUpdate = url.split("/api/users/");
-          return updateUser(response,userIdToUpdate[1], currentUser, requestBody);        
+          return updateUser(response, userIdToUpdate[1], currentUser, requestBody);        
       }
-    } catch(error) {
-      return error;
+    
+  }
+  if(matchProductId(filePath)) {
+    const methodOfRequest = method.toUpperCase();
+    const currentUser = await getCurrentUser(request);
+    if(!currentUser){
+      return responseUtils.basicAuthChallenge(response);
+    }
+    if(request.headers.accept !== 'application/json'){
+      return responseUtils.contentTypeNotAcceptable(response);
+    }
+    if(methodOfRequest === 'GET'){
+      const productIdToSearch = url.split("/api/products/");
+      return viewProduct(response, productIdToSearch[1], currentUser);
     }
   }
 
@@ -175,7 +186,7 @@ const handleRequest = async(request, response) => {
     // TODO: 8.4 Implement registration
     // You can use parseBodyJson(request) method from utils/requestUtils.js to parse request body.
     try{
-      const parsedRequestBody =  await parseBodyJson(request);
+      const parsedRequestBody = await parseBodyJson(request);
       return registerUser(response, parsedRequestBody);
     } catch (error) {
       return error;
