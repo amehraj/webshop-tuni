@@ -46,4 +46,28 @@ const viewOrder = async(response, orderId, currentUser) => {
     }
 };
 
-module.exports = { getAllOrders, viewOrder };
+const createOrder = async(response, orderData, currentUser) => {
+    if(currentUser.role === 'admin'){
+      return responseUtils.forbidden(response);
+    }
+    if(orderData.items.length === 0){
+        return responseUtils.badRequest(response, '400 Bad Request');
+    }
+    orderData.items.forEach((productObj) => {
+        if(!productObj.quantity || !productObj.product || !productObj.product._id || !productObj.product.name || !productObj.product.price){
+            return responseUtils.badRequest(response, '400 Bad Request');
+        }
+    });
+    try{
+      const newOrder = new Order(orderData);
+      const createdOrder = await newOrder.save();
+      if(createdOrder){
+          return responseUtils.createdResource(response, newOrder, '201 Created');
+      }
+    } catch (error) {
+      return error;
+    }
+  
+  };
+
+module.exports = { getAllOrders, viewOrder, createOrder };

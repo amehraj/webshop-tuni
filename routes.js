@@ -4,7 +4,7 @@ const { renderPublic } = require('./utils/render');
 const { getCurrentUser } = require('./auth/auth');
 const { getAllProducts, viewProduct, deleteProduct, updateProduct, createProduct } = require('./controllers/products');
 const { getAllUsers, viewUser, deleteUser, updateUser, registerUser } = require('./controllers/users');
-const { getAllOrders, viewOrder } = require('./controllers/orders');
+const { getAllOrders, viewOrder, createOrder } = require('./controllers/orders');
 
 /**
  * Known API routes and their allowed methods
@@ -16,7 +16,7 @@ const allowedMethods = {
   '/api/register': ['POST'],
   '/api/users': ['GET'],
   '/api/products': ['GET', 'POST'],
-  '/api/orders' : ['GET']
+  '/api/orders' : ['GET', 'POST']
 };
 
 /**
@@ -160,6 +160,21 @@ const handleRequest = async(request, response) => {
     }
     const parsedRequestBody = await parseBodyJson(request);
     return createProduct(response, parsedRequestBody, currentUser);
+  }
+  if (filePath === '/api/orders' && method.toUpperCase() === 'POST') {
+    const currentUser = await getCurrentUser(request);
+    if(!currentUser){
+      return responseUtils.basicAuthChallenge(response);
+    }
+    if(request.headers.accept !== 'application/json'){
+      return responseUtils.contentTypeNotAcceptable(response);
+    }
+    // Fail if not a JSON request, don't allow non-JSON Content-Type
+    if (!isJson(request)) {
+      return responseUtils.badRequest(response, 'Invalid Content-Type. Expected application/json');
+    }
+    const parsedRequestBody = await parseBodyJson(request);
+    return createOrder(response, parsedRequestBody, currentUser);
   }
 
   // Default to 404 Not Found if unknown url
