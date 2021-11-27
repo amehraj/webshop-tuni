@@ -60,6 +60,14 @@ const matchUserId = url => {
   return matchIdRoute(url, 'users');
 };
 
+const matchProductId = url => {
+  return matchIdRoute(url, 'products');
+};
+
+const matchOrdertId = url => {
+  return matchIdRoute(url, 'orders');
+};
+
 const handleRequest = async(request, response) => {
   const { url, method, headers } = request;
   const filePath = new URL(url, `http://${headers.host}`).pathname;
@@ -79,6 +87,9 @@ const handleRequest = async(request, response) => {
       const currentUser = await getCurrentUser(request);
       if(!currentUser){
         return responseUtils.basicAuthChallenge(response);
+      }
+      if(request.headers.accept !== 'application/json'){
+        return responseUtils.contentTypeNotAcceptable(response);
       }
       if(methodOfRequest === 'GET'){
           const userIdToSearch = url.split("/api/users/");

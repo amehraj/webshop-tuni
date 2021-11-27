@@ -51,10 +51,10 @@ describe('Products Test', () => {
       await getAllProducts(response);
       expect(response._getJSONData()).to.be.an('array');
     });
-    it('response should be same as products.json', async () => {
+    it('End called', async () => {
       const response = createResponse();
       await getAllProducts(response);
-      expect(response._getJSONData()).to.be.deep.equal(products);
+      expect(response._isEndCalled()).to.be.true;
     });
   });
 });
