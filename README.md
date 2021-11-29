@@ -1,9 +1,9 @@
 # Group 
 
-Member1:  name, email, student ID, 
+Member1:  Ali Mehraj, ali.mehraj@tuni.fi, student ID, 
 resposible for: TODO, short description of duties 
 
-Member2:  name, email, student ID, 
+Member2:  Anna Knappe, anna.knappe@tuni.fi, 50333099, 
 resposible for: TODO, short description of duties 
 
 
@@ -23,21 +23,45 @@ A web shop with vanilla HTML, CSS.
 ├── auth                    --> TODO
 │   └──  auth.js            --> TODO
 ├── controllers             --> TODO
-│   ├──  ...                -->   ...
+│   ├── orders.js           -->   ...
+│   ├── products.js         -->   ...
 │   └── users.js            --> controller for user
 ├── models                  --> 
-│                               TODO
+│   ├──  db.js              -->   
+│   ├──  user.js            -->
+│   ├──  product.js         -->   
+│   └──  order.js           TODO
 ├── public                  --> 
+│   ├── 404.html            -->   
+│   ├── cart.html           -->
+│   ├── index.html          -->
+│   ├── producst.html       -->   
+│   ├── register.html       -->
+│   ├── users.html
 │   ├── img                 --> 
-│   ├── js                  --> 
-│   └── css                 --> 
+│   │   ├── ...             -->
+│   │   └── ...             -->
+│   ├── js                  -->
+│   │   ├── adminUsers.js   -->
+│   │   ├── cart.js         -->
+│   │   ├── products.js     -->
+│   │   ├── register.js     -->
+│   │   └── utils.js        --> 
+│   └── css                 -->
+│   │   └── styles.css      --> 
 ├── utils                   --> TODO
-│   ├──                     --> TODO
-│   └──                     --> TODO
+│   ├── render.js           --> TODO
+│   ├── requestUtils.js     --> TODO
+│   ├── responseUtils.js    --> TODO
+│   └── users.js            --> TODO
 └── test                    --> tests
 │   ├── auth                --> TODO
+│   │   └── autj.test.js    -->
 │   ├── controllers         --> TODO
+│   │   ├── products.test.js-->
+│   │   └── users.test.js   -->
 └── └── own                 --> TODO
+│   │   └── uown.test.js    -->
 
 
 ```
