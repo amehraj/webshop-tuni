@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Barlow">
+    <title>Add products</title>
+  </head>
+
+  <body>
+    <header>
+      <nav class="navbar">
+        <img src="img/logo_worrt.png" alt="logo webshop of really random things">
+        <ul class="nav-links">
+          <li><a href="index.html">Front Page</a></li>
+          <li><a href="register.html">Register</a></li>
+          <li><a href="users.html">List Users</a></li>
+          <li><a href="products.html">List Products</a></li>
+          <li><a href="cart.html">Shopping Cart</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <div id="notifications-container"></div>
+      <form id="register-form" class="form" method="POST">
+        <h2 class="text-align-center">Add products</h2>
+        <div class="form-group">
+          <label for="productName">Product</label>
+          <input
+            type="text"
+            name="productName"
+            class="form-control"
+            id="productName"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input
+            type="number"
+            name="price"
+            class="form-control"
+            id="price"
+            required>
+        </div>
+        <div class="form-group">
+          <label for="image">Image URL</label>
+          <input
+            type="text"
+            name="image"
+            class="form-control"
+            id="image">
+        </div>
+        <div class="form-group">
+          <label for="passwordConfirmation">Description</label>
+          <input
+            type="text"
+            name="Description"
+            class="form-control"
+            id="description">
+        </div>
+        <div class="form-group">
+          <div class="second-column">
+            <button type="submit" id="btnAddProduct">Add Product</button>
+          </div>
+        </div>
+      </form>
+      <p class="text-align-center">
+        <a href="index.html">Front Page</a>
+      </p>
+    </main>
+    <footer>
+      <p>Copyright &copy; 2021</p>
+    </footer>
+    <script src="js/utils.js"></script>
+    <script src="js/addproduct.js"></script>
+  </body>
+</html>
