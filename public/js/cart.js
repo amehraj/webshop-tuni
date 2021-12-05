@@ -41,8 +41,6 @@ const placeOrder = async() => {
   // for each of the products in the cart remove them, /public/js/utils.js provides removeElement(containerId, elementId)
   const allProductsFromCart = await getAllProductsFromCart();
   let items = [];
-  //console.log(allProductsFromCart);
-  //postOrPutJSON('api/orders', 'POST', allProductsFromCart);
   allProductsFromCart.forEach((singleProduct) => {
     const productId = singleProduct.name;
     const quantity = singleProduct.amount;
@@ -61,7 +59,7 @@ const placeOrder = async() => {
   });
   try{
     const orderData = {items};
-    postOrPutJSON('api/orders', 'POST', orderData);
+    await postOrPutJSON('api/orders', 'POST', orderData);
     createNotification('Successfully created an order!', 'notifications-container', true);
     clearCart();
   } catch (error) {
