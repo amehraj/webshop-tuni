@@ -40,17 +40,35 @@ const placeOrder = async() => {
   // show the user a notification: /public/js/utils.js provides createNotification = (message, containerId, isSuccess = true)
   // for each of the products in the cart remove them, /public/js/utils.js provides removeElement(containerId, elementId)
   const allProductsFromCart = await getAllProductsFromCart();
-  createNotification('Successfully created an order!', 'notifications-container', true);
+  let items = [];
+  //console.log(allProductsFromCart);
+  //postOrPutJSON('api/orders', 'POST', allProductsFromCart);
   allProductsFromCart.forEach((singleProduct) => {
     const productId = singleProduct.name;
+    const quantity = singleProduct.amount;
+    const productNmae = document.querySelector(`#name-${productId}`).textContent;
+    const productPrice = document.querySelector(`#price-${productId}`).textContent;
+    const productDescription = document.querySelector(`#description-${productId}`).textContent;
+    const cartProductData = {"product":{"_id": productId,"name": productNmae,"price":productPrice,"description":productDescription},"quantity":quantity}
+    items.push(cartProductData);
     removeElement('cart-container', `amount-${productId}`);
     removeElement('cart-container', `price-${productId}`);
     removeElement('cart-container', `name-${productId}`);
+    removeElement('cart-container', `description-${productId}`);
     removeElement('cart-container', `minus-${productId}`);
     removeElement('cart-container', `plus-${productId}`);
     removeElement('cart-container', `item-row-${productId}`);
-  })
-  clearCart();
+  });
+  try{
+    const orderData = {items};
+    postOrPutJSON('api/orders', 'POST', orderData);
+    createNotification('Successfully created an order!', 'notifications-container', true);
+    clearCart();
+  } catch (error) {
+    console.error(error);
+    createNotification('Order Placing failed!', 'notifications-container', false);
+  }
+
 };
 
 (async() => {
@@ -98,7 +116,7 @@ const placeOrder = async() => {
       const { name: id , amount } = product;
 
       const productToFind = products.find(product => product._id === id);
-      const { name, price } = productToFind;
+      const { name, price, description } = productToFind;
       const cartTemplateContainer = cartItemTemplate.content.cloneNode(true);
       cartTemplateContainer.querySelector('.item-row').id = `item-row-${id}`;
       cartTemplateContainer.querySelector('.product-name').id = `name-${id}`;
@@ -107,6 +125,8 @@ const placeOrder = async() => {
       cartTemplateContainer.querySelector('.product-price').textContent = price;
       cartTemplateContainer.querySelector('.product-amount').id = `amount-${id}`;
       cartTemplateContainer.querySelector('.product-amount').textContent = amount + 'x';
+      cartTemplateContainer.querySelector('.product-description').id = `description-${id}`;
+      cartTemplateContainer.querySelector('.product-description').textContent = description;
       cartTemplateContainer.querySelectorAll('.cart-minus-plus-button')[0].id = `plus-${id}`;
       cartTemplateContainer.querySelectorAll('.cart-minus-plus-button')[0].addEventListener('click', () => {
         return addToCart(id);

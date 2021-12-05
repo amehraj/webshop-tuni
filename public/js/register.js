@@ -25,8 +25,13 @@
      else{
         let data = {};
         formData.forEach((value, key) => (data[key] = value));
-        postOrPutJSON('api/register', 'POST', data);
+        try{
+        const user = postOrPutJSON('api/register', 'POST', data);
         createNotification('Registration Successful', 'notifications-container', true);
+        } catch (error) {
+           console.error(error);
+           createNotification('Registration Failed', 'notifications-container', false);
+        }
      }
      form.reset();
  })
