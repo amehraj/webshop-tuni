@@ -20,6 +20,23 @@ const addToCart = (productId, productName) => {
   // - remember to add the products to the the page
   const productsContainer = document.querySelector('#products-container');
   const productTemplate = document.querySelector('#product-template');
+  const productDetailsTemplate = document.querySelector('#product-details-template');
+  const productDetailsContainer = document.querySelector('#product-details-container');
+
+
+  const productDetails = (id, name, description, price, image) => {
+    removeElement('product-details-container', 'product-div');
+
+    const productDetails = productDetailsTemplate.content.cloneNode(true);
+    productDetails.querySelector('h2').textContent = name;
+    productDetails.querySelector('#id-input').value = id;
+    productDetails.querySelector('#name-input').value = name;
+    productDetails.querySelector('#description-input').value = description;
+    productDetails.querySelector('#price-input').value = price;
+    productDetails.querySelector('#image-input').value = image;
+
+    productDetailsContainer.append(productDetails);
+};
   try{
     const products = await getJSON('/api/products');
     if (products.length === 0) {
@@ -29,7 +46,7 @@ const addToCart = (productId, productName) => {
       return;
     }
     products.forEach((product) => {
-      const { _id: id, name, description, price } = product;
+      const { _id: id, name, description, price, image } = product;
       const productContainer = productTemplate.content.cloneNode(true);
 
       productContainer.querySelector('.product-name').id = `name-${id}`;
@@ -41,6 +58,10 @@ const addToCart = (productId, productName) => {
       productContainer.querySelector('button').id = `add-to-cart-${id}`;
       productContainer.querySelector('button').addEventListener('click', () => {
         return addToCart(id, name);
+      });
+      productContainer.querySelector('.details').id = `details-${id}`;
+      productContainer.querySelector('.details').addEventListener('click', () => {
+        return productDetails(id, name, description, price, image);
       })
 
       productsContainer.append(productContainer);

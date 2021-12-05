@@ -27,6 +27,7 @@
     <main>
       <h1>Products</h1>
       <div id="notifications-container"></div>
+      <div id="product-details-container"></div>
       <div id="products-container"></div>
     </main>
     <footer>
@@ -38,6 +39,63 @@
         <p class="product-description"></p>
         <p class="product-price"></p>
         <button>Add to cart</button>
+        <button class="details">Details</button>
+      </div>
+    </template>
+    <template id="product-details-template">
+      <div id="product-div">
+        <h2 class="text-align-center">{Product Name}</h2>
+        <div class="form-group">
+          <label for="id">Id</label>
+          <input
+            name="_id"
+            type="text"
+            class="form-control"
+            id="id-input"
+            value=""
+            disabled
+            required>
+        </div>
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input
+            name="name"
+            type="text"
+            class="form-control"
+            id="name-input"
+            value=""
+            required>
+        </div>
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input
+            name="price"
+            type="text"
+            class="form-control"
+            id="price-input"
+            value=""
+            required>
+        </div>
+        <div class="form-group">
+          <label for="description">Description</label>
+          <input
+            name="description"
+            type="text"
+            class="form-control"
+            id="description-input"
+            value=""
+          >
+        </div>
+        <div class="form-group">
+          <label for="image">Image URL</label>
+          <input
+            name="image"
+            type="text"
+            class="form-control"
+            id="image-input"
+            value=""
+          >
+        </div>
       </div>
     </template>
     <script src="js/utils.js"></script>
