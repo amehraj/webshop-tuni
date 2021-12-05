@@ -150,4 +150,33 @@ const registerUser = async(response, userData) => {
 
 };
 
-module.exports = { getAllUsers, registerUser, deleteUser, viewUser, updateUser };
+const createAdmin = async(response, userData) => {
+  try{
+    const isEmailInUse = await User.findOne({ email: userData.email }).exec();
+    if(isEmailInUse){
+      return responseUtils.badRequest(response, '400 Bad Request');
+    }
+    if(!userData.name || !userData.email || !userData.password){
+      return responseUtils.badRequest(response, '400 Bad Request');
+    }
+    if(userData.password.length < 10){
+      return responseUtils.badRequest(response, '400 Bad Request');
+    }
+    const regExpEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+    const checkIfValidEmail = regExpEmail.test(userData.email);
+    if(!checkIfValidEmail){
+      return responseUtils.badRequest(response, '400 Bad Request');
+    }
+    const newUser = new User(userData);
+    const createdUser = await newUser.save();
+    if(createdUser){
+        return responseUtils.createdResource(response, newUser, '201 Created');
+    }
+
+  } catch (error) {
+    return error;
+  }
+
+};
+
+module.exports = { getAllUsers, registerUser, deleteUser, viewUser, updateUser, createAdmin };

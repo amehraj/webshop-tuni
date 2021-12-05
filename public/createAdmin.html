@@ -5,14 +5,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Barlow">
-    <title>Add products</title>
+    <title>Create Admin</title>
   </head>
 
   <body>
     <header>
       <nav class="navbar">
-        <img src="img/logo_worrt.png" alt="logo webshop of really random things">
         <ul class="nav-links">
           <li><a href="index.html">Front Page</a></li>
           <li><a href="register.html">Register</a></li>
@@ -28,56 +26,74 @@
     </header>
     <main>
       <div id="notifications-container"></div>
-      <form id="product-form" class="form" method="POST">
-        <h2 class="text-align-center">Add products</h2>
+      <form id="register-form" class="form" method="POST">
+        <h2 class="text-align-center">Create Admin</h2>
         <div class="form-group">
-          <label for="name">Product Name</label>
+          <label for="name">Name</label>
           <input
             type="text"
             name="name"
             class="form-control"
             id="name"
+            placeholder="John Doe"
             required>
         </div>
         <div class="form-group">
-          <label for="price">Price</label>
+          <label for="email">Email</label>
           <input
-            type="number"
-            name="price"
+            type="email"
+            name="email"
             class="form-control"
-            id="price"
+            id="email"
+            placeholder="user@example.com"
             required>
         </div>
         <div class="form-group">
-          <label for="image">Image URL</label>
+          <label for="password">Password</label>
           <input
-            type="text"
-            name="image"
+            type="password"
+            name="password"
             class="form-control"
-            id="image">
+            id="password"
+            placeholder="password (at least 10 characters)"
+            required>
         </div>
         <div class="form-group">
-          <label for="passwordConfirmation">Description</label>
+          <label for="passwordConfirmation">Password confirmation</label>
           <input
-            type="text"
-            name="description"
+            type="password"
+            name="passwordConfirmation"
             class="form-control"
-            id="description">
+            id="passwordConfirmation"
+            placeholder="password confirmation"
+            minlength="1"
+            required>
         </div>
+        <div class="form-group">
+            <label for="role">Role</label>
+            <input
+              type="input"
+              name="role"
+              class="form-control"
+              id="role"
+              value="admin"
+              required
+              readonly>
+          </div>
         <div class="form-group">
           <div class="second-column">
-            <button type="submit" id="btnAddProduct">Add Product</button>
+            <button type="submit" id="btnRegister">Create Admin</button>
           </div>
         </div>
       </form>
       <p class="text-align-center">
-        <a href="index.html">Front Page</a>
+        <a href="index.html">Front Page</a> | <a href="users.html">List Users</a>
       </p>
     </main>
     <footer>
-      <p>Copyright &copy; 2021</p>
+      <p>Copyright &copy; 2020</p>
     </footer>
     <script src="js/utils.js"></script>
-    <script src="js/addProduct.js"></script>
+    <script src="js/createAdmin.js"></script>
   </body>
 </html>

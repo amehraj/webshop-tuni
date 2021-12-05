@@ -3,7 +3,7 @@ const { acceptsJson, isJson, parseBodyJson } = require('./utils/requestUtils');
 const { renderPublic } = require('./utils/render');
 const { getCurrentUser } = require('./auth/auth');
 const { getAllProducts, viewProduct, deleteProduct, updateProduct, createProduct } = require('./controllers/products');
-const { getAllUsers, viewUser, deleteUser, updateUser, registerUser } = require('./controllers/users');
+const { getAllUsers, viewUser, deleteUser, updateUser, registerUser, createAdmin } = require('./controllers/users');
 const { getAllOrders, viewOrder, createOrder } = require('./controllers/orders');
 
 /**
@@ -16,7 +16,8 @@ const allowedMethods = {
   '/api/register': ['POST'],
   '/api/users': ['GET'],
   '/api/products': ['GET', 'POST'],
-  '/api/orders' : ['GET', 'POST']
+  '/api/orders' : ['GET', 'POST'],
+  '/api/createAdmin' : ['POST']
 };
 
 /**
@@ -245,6 +246,20 @@ const handleRequest = async(request, response) => {
     return registerUser(response, parsedRequestBody);
     
     //throw new Error('Not Implemented');
+  }
+  if (filePath === '/api/createAdmin' && method.toUpperCase() === 'POST') {
+    if (!isJson(request)) {
+      return responseUtils.badRequest(response, 'Invalid Content-Type. Expected application/json');
+    }
+    const currentUser = await getCurrentUser(request);
+    if(!currentUser){
+      return responseUtils.basicAuthChallenge(response);
+    }
+    if(currentUser.role === 'customer'){
+      return responseUtils.forbidden(response);
+    }
+    const parsedRequestBody = await parseBodyJson(request);
+    return createAdmin(response, parsedRequestBody);
   }
 };
 
