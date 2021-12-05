@@ -3,7 +3,7 @@ const submitButton = document.querySelector('#btnAddProduct');
 const form = document.querySelector('#product-form');
 
 
- form.addEventListener('submit', (event) => {
+ form.addEventListener('submit', async (event) => {
      event.preventDefault();
 
     let formData = new FormData(form);
