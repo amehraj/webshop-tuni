@@ -58,6 +58,7 @@ const createOrder = async(response, orderData, currentUser) => {
             return responseUtils.badRequest(response, '400 Bad Request');
         }
     });
+    orderData.customerId = currentUser._id;
     try{
       const newOrder = new Order(orderData);
       const createdOrder = await newOrder.save();
