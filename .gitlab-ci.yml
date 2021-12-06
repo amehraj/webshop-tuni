@@ -23,7 +23,7 @@ sonarqube-check:
     - /usr/local/bin/node-link-packages.sh
     - npm install
     - npm run coverage
-    - sonar-scanner.bat -D"sonar.projectKey=webdev1-autumn-2021-webdev1-group76" -D"sonar.sources=." -D"sonar.host.url=https://course-sonar.rd.tuni.fi" -D"sonar.login=744c00f4701edb0740f34865e4d88bc350e06069"
+    - sonar-scanner -Dsonar.projectKey=$webdev1-autumn-2021-webdev1-group76 -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info -Dsonar.exclusions=test/**
   only:
     refs:
       - master
