@@ -111,12 +111,15 @@ footer {
   
 }
 
-.product-image {
+.image-block {
   flex: 40%;
+  padding-bottom: 1rem;
 } 
 
 .item-row {
   flex: 60%;
+  padding-left: 2rem;
+  padding-bottom: 1rem;
 }
 
 input {
@@ -171,6 +174,11 @@ button:hover {
   }
   .nav-links li {
     font-size: 3rem;
+  }
+
+  .product-container {
+    flex-direction: column;
+    
   }
 
 }

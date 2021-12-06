@@ -49,6 +49,8 @@ const addToCart = (productId, productName) => {
       const { _id: id, name, description, price, image } = product;
       const productContainer = productTemplate.content.cloneNode(true);
 
+      console.log(image);
+      productContainer.getElementById('product-image').src = image;
       productContainer.querySelector('.product-name').id = `name-${id}`;
       productContainer.querySelector('.product-name').textContent = name;
       productContainer.querySelector('.product-description').id = `description-${id}`;
