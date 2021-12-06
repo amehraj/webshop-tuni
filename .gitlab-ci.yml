@@ -26,4 +26,4 @@ sonarqube-check:
     - sonar-scanner -Dsonar.projectKey=webdev1-autumn-2021-webdev1-group76 -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info -Dsonar.exclusions=test/**
   only:
     refs:
-      - master
+      - main
