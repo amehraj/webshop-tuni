@@ -8,13 +8,8 @@ const User = require('../models/user');
 
 const getAllUsers = async response => {
   // TODO: 10.2 Implement this
-  try{
     const allUsers = await User.find({});
     return responseUtils.sendJson(response, allUsers, 200);
-  }
-  catch(error){
-    return error;
-  }
 };
 
 /**
@@ -33,8 +28,7 @@ const deleteUser = async(response, userId, currentUser) => {
   if(currentUser.role === 'customer'){
     return responseUtils.forbidden(response);
   }
-  if(currentUser.role === 'admin'){
-    try {
+  else{
       const deletedUser = await User.findOneAndDelete({ _id: userId }).exec();
       if(deletedUser){
         return responseUtils.sendJson(response, deletedUser, 200);
@@ -43,9 +37,6 @@ const deleteUser = async(response, userId, currentUser) => {
         return responseUtils.notFound(response);
       }
 
-    } catch(error) {
-      return error;
-    }
   }
 };
 
@@ -71,8 +62,7 @@ const updateUser = async(response, userId, currentUser, userData) => {
   if(userData.role !== 'admin' && userData.role !== 'customer'){
     return responseUtils.badRequest(response, '400 Bad Request');
   }
-  if(currentUser.role === 'admin'){
-    try{
+  else{
       const updatedUser = await User.findOneAndUpdate({ _id: userId}, { role: userData.role }, { new: true });
       if(updatedUser){
         return responseUtils.sendJson(response, updatedUser, 200);
@@ -80,9 +70,6 @@ const updateUser = async(response, userId, currentUser, userData) => {
       else{
         return responseUtils.notFound(response);
       }
-    } catch (error) {
-      return error;
-    }
   }
 };
 
@@ -98,8 +85,7 @@ const viewUser = async(response, userId, currentUser) => {
   if(currentUser.role === 'customer'){
     return responseUtils.forbidden(response);
   }
-  if(currentUser.role === 'admin'){
-    try {
+  else{
       const singleUser = await User.findOne({ _id: userId }).exec();
       if(singleUser){
             return responseUtils.sendJson(response, singleUser, 200);
@@ -107,10 +93,6 @@ const viewUser = async(response, userId, currentUser) => {
       else{
         return responseUtils.notFound(response);
       }
-
-    } catch(error) {
-      return error;
-    }
   }
 };
 
@@ -122,7 +104,6 @@ const viewUser = async(response, userId, currentUser) => {
  */
 const registerUser = async(response, userData) => {
   // TODO: 10.2 Implement this
-  try{
     const isEmailInUse = await User.findOne({ email: userData.email }).exec();
     if(isEmailInUse){
       return responseUtils.badRequest(response, '400 Bad Request');
@@ -139,19 +120,11 @@ const registerUser = async(response, userData) => {
       return responseUtils.badRequest(response, '400 Bad Request');
     }
     const newUser = new User({ name: userData.name, email: userData.email, password: userData.password});
-    const createdUser = await newUser.save();
-    if(createdUser){
-        return responseUtils.createdResource(response, newUser, '201 Created');
-    }
-
-  } catch (error) {
-    return error;
-  }
-
+    await newUser.save();
+    return responseUtils.createdResource(response, newUser, '201 Created');
 };
 
 const createAdmin = async(response, userData) => {
-  try{
     const isEmailInUse = await User.findOne({ email: userData.email }).exec();
     if(isEmailInUse){
       return responseUtils.badRequest(response, '400 Bad Request');
@@ -172,11 +145,6 @@ const createAdmin = async(response, userData) => {
     if(createdUser){
         return responseUtils.createdResource(response, newUser, '201 Created');
     }
-
-  } catch (error) {
-    return error;
-  }
-
 };
 
 module.exports = { getAllUsers, registerUser, deleteUser, viewUser, updateUser, createAdmin };

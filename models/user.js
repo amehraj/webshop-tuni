@@ -28,9 +28,6 @@ const validatorName = (val) => {
 	if (val.length < SCHEMA_DEFAULTS.name.minLength || val.length > SCHEMA_DEFAULTS.name.maxLength) {
 		return false;
 	}
-	else if (val.substring(0, 1) === ' ' || val.substring(val.length-1, val.length) === ' '){
-		return false;
-	}
 	else {
 		return true;
 	}

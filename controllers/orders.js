@@ -1,5 +1,5 @@
 /**
- * Send all users as JSON
+ * Send all orders as JSON
  *
  * @param {http.ServerResponse} response
  */
@@ -51,7 +51,7 @@ const createOrder = async(response, orderData, currentUser) => {
       const newOrder = new Order(orderData);
       await newOrder.save();
       return responseUtils.createdResource(response, newOrder, '201 Created');
-      
+
     } catch (error) {
       return error;
     }

@@ -47,7 +47,7 @@ const updateProduct = async(response, productId, currentUser, productData) => {
   if(productData.price === 0 || productData.price < 0 || isNaN(productData.price)){
     return responseUtils.badRequest(response, '400 Bad Request');
   }
-  if(currentUser.role === 'admin'){
+  else{
       const updatedProduct = await Product.findOneAndUpdate({ _id: productId }, productData, { new: true });
       if(updatedProduct){
         return responseUtils.sendJson(response, updatedProduct, 200);
@@ -62,12 +62,12 @@ const createProduct = async(response, productData, currentUser) => {
   if(currentUser.role === 'customer'){
     return responseUtils.forbidden(response);
   }
-    if(!productData.name || !productData.price){
+  if(!productData.name || !productData.price){
       return responseUtils.badRequest(response, '400 Bad Request');
-    }
-    const newProduct = new Product(productData);
-    await newProduct.save();
-    return responseUtils.createdResource(response, newProduct, '201 Created');
+  } 
+  const newProduct = new Product(productData);
+  await newProduct.save();
+  return responseUtils.createdResource(response, newProduct, '201 Created');
 };
 
 module.exports = { getAllProducts, viewProduct, deleteProduct, updateProduct, createProduct };
