@@ -295,6 +295,42 @@ describe('Routes', () => {
         expect(response.body.role).to.equal('customer');
         expect(createdUser.role).to.equal('customer');
       });
+      it('should create admin when admin creation is successful with admin credentials', async () => {
+        const user = getTestUser();
+        user.role = 'admin';
+        user.isAdminCreation = 'isAdminCreation';
+
+        const response = await chai
+          .request(handleRequest)
+          .post(registrationUrl)
+          .set('Accept', contentType)
+          .set('Authorization', `Basic ${adminCredentials}`)
+          .send(user);
+
+        const createdUser = await User.findOne({ email: user.email }).exec();
+
+        expect(response).to.have.status(201);
+        expect(response).to.be.json;
+        expect(response.body).to.be.an('object');
+        expect(response.body).to.have.all.keys('_id', 'name', 'email', 'password', 'role');
+        expect(response.body.role).to.equal('admin');
+        expect(createdUser.role).to.equal('admin');
+      });
+      it('should respond with forbidden when admin creation is failed with customer credentials', async () => {
+        const user = getTestUser();
+        user.role = 'admin';
+        user.isAdminCreation = 'isAdminCreation';
+
+        const response = await chai
+          .request(handleRequest)
+          .post(registrationUrl)
+          .set('Accept', contentType)
+          .set('Authorization', `Basic ${customerCredentials}`)
+          .send(user);
+
+        expect(response).to.have.status(403);
+
+      });
     });
 
     describe('Viewing all users: GET /api/users', () => {

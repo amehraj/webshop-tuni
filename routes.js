@@ -36,8 +36,10 @@ const sendOptions = (filePath, response) => {
     });
     return response.end();
   }
+  else{
+    return responseUtils.notFound(response);
+  }
 
-  return responseUtils.notFound(response);
 };
 
 /**
@@ -108,6 +110,9 @@ const handleRequest = async(request, response) => {
           const userIdToUpdate = url.split("/api/users/");
           return updateUser(response, userIdToUpdate[1], currentUser, requestBody);        
       }
+      else{
+        return responseUtils.notFound(response);
+      }
     
   }
   if(matchProductId(filePath)) {
@@ -132,6 +137,9 @@ const handleRequest = async(request, response) => {
       const productIdToUpdate = url.split("/api/products/");
       return updateProduct(response, productIdToUpdate[1], currentUser, requestBody);
     }
+    else {
+      return responseUtils.notFound(response);
+    }
   }
   if(matchOrdertId(filePath)) {
     const methodOfRequest = method.toUpperCase();
@@ -145,6 +153,9 @@ const handleRequest = async(request, response) => {
     if(methodOfRequest === 'GET'){
       const orderIdToSearch = url.split("/api/orders/");
       return viewOrder(response, orderIdToSearch[1], currentUser);
+    }
+    else{
+      return responseUtils.notFound(response);
     }
   }
   if (filePath === '/api/products' && method.toUpperCase() === 'POST') {
@@ -260,20 +271,9 @@ const handleRequest = async(request, response) => {
     
     //throw new Error('Not Implemented');
   }
-  // if (filePath === '/api/createAdmin' && method.toUpperCase() === 'POST') {
-  //   if (!isJson(request)) {
-  //     return responseUtils.badRequest(response, 'Invalid Content-Type. Expected application/json');
-  //   }
-  //   const currentUser = await getCurrentUser(request);
-  //   if(!currentUser){
-  //     return responseUtils.basicAuthChallenge(response);
-  //   }
-  //   if(currentUser.role === 'customer'){
-  //     return responseUtils.forbidden(response);
-  //   }
-  //   const parsedRequestBody = await parseBodyJson(request);
-  //   return createAdmin(response, parsedRequestBody);
-  // }
+  else{
+    return responseUtils.notFound(response);
+  }
 };
 
 module.exports = { handleRequest };
