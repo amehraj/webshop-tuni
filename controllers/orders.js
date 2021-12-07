@@ -7,23 +7,16 @@
  const Order = require('../models/order');
 
  const getAllOrders = async (response, currentUser) => {
-    try{
       if(currentUser.role === 'admin'){
         const allOrders = await Order.find({});
         return responseUtils.sendJson(response, allOrders, 200);
       }
-      if(currentUser.role === 'customer'){
+      else{
         const allOrders = await Order.find({ customerId : currentUser.id});
         return responseUtils.sendJson(response, allOrders, 200);
       }
-    }
-    catch(error){
-      return error;
-    }
 };
 const viewOrder = async(response, orderId, currentUser) => {
-    if(currentUser.role === 'admin' || currentUser.role === 'customer'){
-      try {
         const singleOrder = await Order.findOne({ _id: orderId }).exec();
         if(singleOrder){
             if(currentUser.role === 'admin'){
@@ -39,11 +32,6 @@ const viewOrder = async(response, orderId, currentUser) => {
         else{
           return responseUtils.notFound(response);
         }
-  
-      } catch(error) {
-        return error;
-      }
-    }
 };
 
 const createOrder = async(response, orderData, currentUser) => {
@@ -61,10 +49,9 @@ const createOrder = async(response, orderData, currentUser) => {
     orderData.customerId = currentUser._id;
     try{
       const newOrder = new Order(orderData);
-      const createdOrder = await newOrder.save();
-      if(createdOrder){
-          return responseUtils.createdResource(response, newOrder, '201 Created');
-      }
+      await newOrder.save();
+      return responseUtils.createdResource(response, newOrder, '201 Created');
+      
     } catch (error) {
       return error;
     }
