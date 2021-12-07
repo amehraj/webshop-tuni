@@ -16,7 +16,7 @@
         let data = {};
         formData.forEach((value, key) => (data[key] = value));
         try{
-        const user = await postOrPutJSON('api/createAdmin', 'POST', data);
+        const user = await postOrPutJSON('api/register', 'POST', data);
         createNotification('Admin Creation Successful', 'notifications-container', true);
         } catch (error) {
            console.error(error);

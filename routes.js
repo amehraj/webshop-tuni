@@ -3,7 +3,7 @@ const { acceptsJson, isJson, parseBodyJson } = require('./utils/requestUtils');
 const { renderPublic } = require('./utils/render');
 const { getCurrentUser } = require('./auth/auth');
 const { getAllProducts, viewProduct, deleteProduct, updateProduct, createProduct } = require('./controllers/products');
-const { getAllUsers, viewUser, deleteUser, updateUser, registerUser, createAdmin } = require('./controllers/users');
+const { getAllUsers, viewUser, deleteUser, updateUser, registerUser } = require('./controllers/users');
 const { getAllOrders, viewOrder, createOrder } = require('./controllers/orders');
 
 /**
@@ -199,7 +199,7 @@ const handleRequest = async(request, response) => {
       if(!currentUser){
         return responseUtils.basicAuthChallenge(response);
       }
-      if(currentUser.role === 'customer' || currentUser.role === 'admin'){
+      else{
         return getAllOrders(response, currentUser);
       }
   }
@@ -209,8 +209,7 @@ const handleRequest = async(request, response) => {
       if(!currentUser){
         return responseUtils.basicAuthChallenge(response);
       }
-      if(currentUser.role === 'customer' || currentUser.role === 'admin'){
-        // return responseUtils.sendJson(response, productsFromJson, 200);
+      else{
         return getAllProducts(response);
       }
   }
@@ -243,24 +242,38 @@ const handleRequest = async(request, response) => {
     // TODO: 8.4 Implement registration
     // You can use parseBodyJson(request) method from utils/requestUtils.js to parse request body.
     const parsedRequestBody = await parseBodyJson(request);
-    return registerUser(response, parsedRequestBody);
+    if(parsedRequestBody.isAdminCreation === 'isAdminCreation'){
+      const currentUser = await getCurrentUser(request);
+      if(!currentUser){
+        return responseUtils.basicAuthChallenge(response);
+      }
+      if(currentUser.role === 'customer'){
+        return responseUtils.forbidden(response);
+      }
+      else {
+        return registerUser(response, parsedRequestBody);
+      }
+    }
+    else{
+      return registerUser(response, parsedRequestBody);
+    }
     
     //throw new Error('Not Implemented');
   }
-  if (filePath === '/api/createAdmin' && method.toUpperCase() === 'POST') {
-    if (!isJson(request)) {
-      return responseUtils.badRequest(response, 'Invalid Content-Type. Expected application/json');
-    }
-    const currentUser = await getCurrentUser(request);
-    if(!currentUser){
-      return responseUtils.basicAuthChallenge(response);
-    }
-    if(currentUser.role === 'customer'){
-      return responseUtils.forbidden(response);
-    }
-    const parsedRequestBody = await parseBodyJson(request);
-    return createAdmin(response, parsedRequestBody);
-  }
+  // if (filePath === '/api/createAdmin' && method.toUpperCase() === 'POST') {
+  //   if (!isJson(request)) {
+  //     return responseUtils.badRequest(response, 'Invalid Content-Type. Expected application/json');
+  //   }
+  //   const currentUser = await getCurrentUser(request);
+  //   if(!currentUser){
+  //     return responseUtils.basicAuthChallenge(response);
+  //   }
+  //   if(currentUser.role === 'customer'){
+  //     return responseUtils.forbidden(response);
+  //   }
+  //   const parsedRequestBody = await parseBodyJson(request);
+  //   return createAdmin(response, parsedRequestBody);
+  // }
 };
 
 module.exports = { handleRequest };

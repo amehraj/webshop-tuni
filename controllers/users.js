@@ -119,32 +119,39 @@ const registerUser = async(response, userData) => {
     if(!checkIfValidEmail){
       return responseUtils.badRequest(response, '400 Bad Request');
     }
-    const newUser = new User({ name: userData.name, email: userData.email, password: userData.password});
+    let userDataForDB = {};
+    if(userData.isAdminCreation === 'isAdminCreation'){
+      userDataForDB = { name: userData.name, email: userData.email, password: userData.password, role: userData.role };
+    }
+    else{
+      userDataForDB = { name: userData.name, email: userData.email, password: userData.password };
+    }
+    const newUser = new User(userDataForDB);
     await newUser.save();
     return responseUtils.createdResource(response, newUser, '201 Created');
 };
 
-const createAdmin = async(response, userData) => {
-    const isEmailInUse = await User.findOne({ email: userData.email }).exec();
-    if(isEmailInUse){
-      return responseUtils.badRequest(response, '400 Bad Request');
-    }
-    if(!userData.name || !userData.email || !userData.password){
-      return responseUtils.badRequest(response, '400 Bad Request');
-    }
-    if(userData.password.length < 10){
-      return responseUtils.badRequest(response, '400 Bad Request');
-    }
-    const regExpEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
-    const checkIfValidEmail = regExpEmail.test(userData.email);
-    if(!checkIfValidEmail){
-      return responseUtils.badRequest(response, '400 Bad Request');
-    }
-    const newUser = new User(userData);
-    const createdUser = await newUser.save();
-    if(createdUser){
-        return responseUtils.createdResource(response, newUser, '201 Created');
-    }
-};
+// const createAdmin = async(response, userData) => {
+//     const isEmailInUse = await User.findOne({ email: userData.email }).exec();
+//     if(isEmailInUse){
+//       return responseUtils.badRequest(response, '400 Bad Request');
+//     }
+//     if(!userData.name || !userData.email || !userData.password){
+//       return responseUtils.badRequest(response, '400 Bad Request');
+//     }
+//     if(userData.password.length < 10){
+//       return responseUtils.badRequest(response, '400 Bad Request');
+//     }
+//     const regExpEmail = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
+//     const checkIfValidEmail = regExpEmail.test(userData.email);
+//     if(!checkIfValidEmail){
+//       return responseUtils.badRequest(response, '400 Bad Request');
+//     }
+//     const newUser = new User(userData);
+//     const createdUser = await newUser.save();
+//     if(createdUser){
+//         return responseUtils.createdResource(response, newUser, '201 Created');
+//     }
+// };
 
-module.exports = { getAllUsers, registerUser, deleteUser, viewUser, updateUser, createAdmin };
+module.exports = { getAllUsers, registerUser, deleteUser, viewUser, updateUser };
