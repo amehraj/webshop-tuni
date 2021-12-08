@@ -331,30 +331,6 @@ describe('Routes', () => {
         expect(response).to.have.status(403);
 
       });
-      it('should respond with "405" when registration is url is sent with GET method', async () => {
-        const user = getTestUser();
-
-        const response = await chai
-          .request(handleRequest)
-          .get(registrationUrl)
-          .set('Accept', contentType)
-          .send(user);
-
-        expect(response).to.have.status(405);
-
-      });
-      it('should respond with "405" when registration is url is sent with PATCH method', async () => {
-        const user = getTestUser();
-
-        const response = await chai
-          .request(handleRequest)
-          .patch(registrationUrl)
-          .set('Accept', contentType)
-          .send(user);
-
-        expect(response).to.have.status(405);
-
-      });
     });
 
     describe('Viewing all users: GET /api/users', () => {

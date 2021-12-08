@@ -53,7 +53,8 @@ const createOrder = async(response, orderData, currentUser) => {
       return responseUtils.createdResource(response, newOrder, '201 Created');
 
     } catch (error) {
-      return error;
+      console.error(error);
+      return responseUtils.internalServerError(response);
     }
   
   };
