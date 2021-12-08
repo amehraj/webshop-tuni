@@ -132,4 +132,5 @@ const registerUser = async(response, userData) => {
 };
 
 
+
 module.exports = { getAllUsers, registerUser, deleteUser, viewUser, updateUser };

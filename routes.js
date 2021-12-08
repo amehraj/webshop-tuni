@@ -268,8 +268,6 @@ const handleRequest = async(request, response) => {
     else{
       return registerUser(response, parsedRequestBody);
     }
-    
-    //throw new Error('Not Implemented');
   }
   else{
     return responseUtils.notFound(response);
