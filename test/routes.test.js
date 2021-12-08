@@ -331,6 +331,30 @@ describe('Routes', () => {
         expect(response).to.have.status(403);
 
       });
+      it('should respond with "405" when registration is url is sent with GET method', async () => {
+        const user = getTestUser();
+
+        const response = await chai
+          .request(handleRequest)
+          .get(registrationUrl)
+          .set('Accept', contentType)
+          .send(user);
+
+        expect(response).to.have.status(405);
+
+      });
+      it('should respond with "405" when registration is url is sent with PATCH method', async () => {
+        const user = getTestUser();
+
+        const response = await chai
+          .request(handleRequest)
+          .patch(registrationUrl)
+          .set('Accept', contentType)
+          .send(user);
+
+        expect(response).to.have.status(405);
+
+      });
     });
 
     describe('Viewing all users: GET /api/users', () => {
@@ -410,6 +434,16 @@ describe('Routes', () => {
         expect(response).to.have.status(403);
       });
 
+      it('should respond with "405" when unallowed method is received', async () => {
+        const response = await chai
+          .request(handleRequest)
+          .patch(usersUrl)
+          .set('Accept', contentType)
+          .set('Authorization', `Basic ${adminCredentials}`);
+
+        expect(response).to.have.status(405);
+      });
+
       it('should respond with JSON when admin credentials are received', async () => {
         const response = await chai
           .request(handleRequest)
@@ -436,6 +470,16 @@ describe('Routes', () => {
           .split('')
           .reverse()
           .join('');
+      });
+
+      it('should respond with "405" when Unallowed method is given', async () => {
+        const response = await chai
+          .request(handleRequest)
+          .patch(url)
+          .set('Accept', contentType)
+          .set('Authorization', `Basic ${adminCredentials}`);
+
+        expect(response).to.have.status(405);
       });
 
       it('should respond with "401 Unauthorized" when Authorization header is missing', async () => {
@@ -859,6 +903,16 @@ describe('Routes', () => {
         expect(response).to.have.status(406);
       });
 
+      it('should respond with "405" when unallowed method is received', async () => {
+        const response = await chai
+          .request(handleRequest)
+          .patch(productsUrl)
+          .set('Accept', contentType)
+          .set('Authorization', `Basic ${adminCredentials}`);
+
+        expect(response).to.have.status(405);
+      });
+
       it('should respond with JSON when admin credentials are received', async () => {
         const response = await chai
           .request(handleRequest)
@@ -969,6 +1023,16 @@ describe('Routes', () => {
           .set('Accept', 'text/html')
           .set('Authorization', `Basic ${adminCredentials}`);
         expect(response).to.have.status(406);
+      });
+
+      it('should respond with "405" when unallowed method is received', async () => {
+        const response = await chai
+          .request(handleRequest)
+          .patch(url)
+          .set('Accept', contentType)
+          .set('Authorization', `Basic ${adminCredentials}`);
+
+        expect(response).to.have.status(405);
       });
 
       it('should respond with JSON when admin credentials are received', async () => {
@@ -1520,6 +1584,16 @@ describe('Routes', () => {
         expect(response).to.have.status(406);
       });
 
+      it('should respond with "405" when unallowed method is received', async () => {
+        const response = await chai
+          .request(handleRequest)
+          .patch(ordersUrl)
+          .set('Accept', contentType)
+          .set('Authorization', `Basic ${adminCredentials}`);
+
+        expect(response).to.have.status(405);
+      });
+
       it('should respond with JSON when admin credentials are received', async () => {
         const response = await chai
           .request(handleRequest)
@@ -1638,6 +1712,16 @@ describe('Routes', () => {
           .set('Accept', 'text/html')
           .set('Authorization', `Basic ${adminCredentials}`);
         expect(response).to.have.status(406);
+      });
+
+      it('should respond with "405" when unallowed method is received', async () => {
+        const response = await chai
+          .request(handleRequest)
+          .patch(url)
+          .set('Accept', contentType)
+          .set('Authorization', `Basic ${adminCredentials}`);
+
+        expect(response).to.have.status(405);
       });
 
       it('should respond with JSON when admin credentials are received', async () => {
