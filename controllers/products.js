@@ -65,15 +65,9 @@ const createProduct = async(response, productData, currentUser) => {
   if(!productData.name || !productData.price){
       return responseUtils.badRequest(response, '400 Bad Request');
   } 
-  try{
-    const newProduct = new Product(productData);
-    await newProduct.save();
-    return responseUtils.createdResource(response, newProduct, '201 Created');
-  } catch (error) {
-    console.error(error);
-    return responseUtils.internalServerError(response);
-  }
-
+  const newProduct = new Product(productData);
+  await newProduct.save();
+  return responseUtils.createdResource(response, newProduct, '201 Created');
 };
 
 module.exports = { getAllProducts, viewProduct, deleteProduct, updateProduct, createProduct };

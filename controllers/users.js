@@ -126,15 +126,9 @@ const registerUser = async(response, userData) => {
     else{
       userDataForDB = { name: userData.name, email: userData.email, password: userData.password };
     }
-    try{
-      const newUser = new User(userDataForDB);
-      await newUser.save();
-      return responseUtils.createdResource(response, newUser, '201 Created');
-    } catch (error) {
-      console.error(error);
-      return responseUtils.internalServerError(response);
-    }
-
+    const newUser = new User(userDataForDB);
+    await newUser.save();
+    return responseUtils.createdResource(response, newUser, '201 Created');
 };
 
 
