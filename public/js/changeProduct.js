@@ -4,6 +4,8 @@
     const productTemplate = document.querySelector('#product-template');
     const formTemplate = document.querySelector('#form-template');
     const modifyContainer = document.querySelector('#modify-product');
+    const containerColors = ['#2e0017', '#520101', '#1c0347', '#031647', '#034734', '#471f03','#400347', '#47032c','#022e22', '#02272e'];
+
 
     const updateProduct = async event => {
         event.preventDefault();
@@ -69,9 +71,13 @@
       products.forEach((product) => {
         const { _id: id, name, description, price, image } = product;
         const productContainer = productTemplate.content.cloneNode(true);
-        productContainer.querySelector('.item-row').id = `product-${id}`;
+        const bgColor = Math.floor(Math.random() * (containerColors.length));
+        
+        productContainer.querySelector('.product-container').style.backgroundColor = containerColors[bgColor];
+        productContainer.querySelector('.item-row-narrow').id = `product-${id}`;
         productContainer.querySelector('.product-name').id = `name-${id}`;
         productContainer.querySelector('.product-name').textContent = name;
+        productContainer.getElementById('product-image').src = image;
         productContainer.querySelector('.product-description').id = `description-${id}`;
         productContainer.querySelector('.product-description').textContent = description;
         productContainer.querySelector('.product-price').id = `price-${id}`;

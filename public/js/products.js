@@ -22,6 +22,7 @@ const addToCart = (productId, productName) => {
   const productTemplate = document.querySelector('#product-template');
   const productDetailsTemplate = document.querySelector('#product-details-template');
   const productDetailsContainer = document.querySelector('#product-details-container');
+  const containerColors = ['#2e0017', '#520101', '#1c0347', '#031647', '#034734', '#471f03','#400347', '#47032c','#022e22', '#02272e'];
 
 
   const productDetails = (id, name, description, price, image) => {
@@ -48,8 +49,8 @@ const addToCart = (productId, productName) => {
     products.forEach((product) => {
       const { _id: id, name, description, price, image } = product;
       const productContainer = productTemplate.content.cloneNode(true);
-
-      console.log(image);
+      const bgColor = Math.floor(Math.random() * (containerColors.length));
+      productContainer.querySelector('.product-container').style.backgroundColor = containerColors[bgColor];
       productContainer.getElementById('product-image').src = image;
       productContainer.querySelector('.product-name').id = `name-${id}`;
       productContainer.querySelector('.product-name').textContent = name;

@@ -14,20 +14,21 @@ html {
 body {
   font-size: 1.6rem;
   font-family: 'Montserrat';
+  color: #252525;
   display: grid;
   grid-template-rows: auto 1fr auto;
 }
 
 a { 
   text-decoration: none; 
-  color:rgb(97, 2, 68);
+  color:#2D162F;
 }
 
 header,
 main,
 footer {
   width: 100vw;
-  padding: 1rem 2.5rem;
+  padding: 1rem;
 }
 
 header,
@@ -40,9 +41,39 @@ footer {
 }
 
 h1, h2, h3 {
+  text-transform: uppercase;
   font-family: Barlow;
+  
+  
+  background-image: conic-gradient(#2e0017, #520101, #1c0347, #031647, #034734, #471f03,#400347, #47032c,#022e22, #02272e);
+  background-size: 100% 15%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
 }
 
+label {
+  color: white;
+}
+
+h1 {
+  text-transform: uppercase;
+  color: #333333;
+  display:inline;
+  background-image: conic-gradient(#2e0017, #520101, #1c0347, #031647, #034734, #471f03,#400347, #47032c,#022e22, #02272e);
+  background-size: 100% 15%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  
+}
+
+.logo {
+  padding:1.5rem;
+  background-image: conic-gradient(#2e0017, #520101, #1c0347, #031647, #034734, #471f03,#400347, #47032c,#022e22, #02272e);
+  background-size: 120% 15%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+
+}
 
 .frontpage_image {
   width: 100%;
@@ -70,7 +101,7 @@ h1, h2, h3 {
 
 .nav-links li {
   font-family: 'Barlow';
-  color:rgb(97, 2, 68);
+  color: #2D162F;
   text-transform: uppercase;
   text-decoration: none;
   padding: 0 1.5rem;
@@ -94,7 +125,8 @@ h1, h2, h3 {
   min-width: 65rem;
   padding: 1rem;
   border-radius: 5px;
-  border: 1px solid grey;
+  color: white;
+  background-image: conic-gradient(#2e0017, #520101, #1c0347, #031647, #034734, #471f03,#400347, #47032c,#022e22, #02272e);
 }
 
 .form-group {
@@ -112,7 +144,15 @@ h1, h2, h3 {
 
 .product-container {
   display: flex;
-  
+  flex-direction: column;
+  margin: 5px;
+  padding: 5px;
+  color: white;
+  border-radius: 5px;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 10px;
+  border-image: conic-gradient(#2e0017, #520101, #1c0347, #031647, #034734, #471f03,#400347, #47032c,#022e22, #02272e) 1;
 }
 
 .image-block {
@@ -124,6 +164,22 @@ h1, h2, h3 {
   flex: 60%;
   padding-left: 2rem;
   padding-bottom: 1rem;
+  max-width: 500px;
+}
+
+.item-row-narrow {
+  
+  padding-left: 2rem;
+  padding-bottom: 1rem;
+  height: 100 px;
+  flex-direction: column;
+}
+
+.button-container {
+
+  display: flex;
+  justify-content: center;
+  
 }
 
 input {
@@ -139,12 +195,14 @@ label {
 }
 
 button {
-  background-color: #440657;
-  color: white;
+  background-color: white;
+  color: #2D162F;
   padding: 1.5rem 2rem;
+  margin: 0.8rem;
   border: none;
   cursor: pointer;
   font-size: 1.1em;
+  border-radius: 5px;
 }
 
 button:hover {
@@ -159,16 +217,26 @@ button:hover {
   background-color: red;
 }
 
+#products-container{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+#cart-container, #orders-container, #users-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
 
 @media only screen and (max-width: 600px) {
   .frontpage_image {
-    width: 100%;
-    height: 722px;
     background-image: url(../img/frontpage_illustration_small.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    
+    width: 100%;
+    height: 499px;
   }
+
   .navbar {
     flex-direction: column;
   }
@@ -182,20 +250,22 @@ button:hover {
 
   .product-container {
     flex-direction: column;
-    
   }
 
+  .item-row-narrow {
+    max-width: 100vw; 
+  }
 }
+
+
 
 @media only screen and (min-width: 601px) {
   .frontpage_image {
-    width: 100%;
-    height: 899px;
     background-image: url(../img/frontpage_illustration_medium.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    
-  }
+    width: 100%;
+    height: 526px;
+    }
+
   .navbar {
     flex-direction: column;
   }
@@ -207,15 +277,22 @@ button:hover {
   .nav-links li {
     font-size: 1.8rem;
   }
+
+  .item-row-narrow {
+    
+    max-width: 45vw;
+    
+  }
+  
 }
 
   @media only screen and (min-width: 1200px) {
     .frontpage_image {
-      width: 100%;
-      height: 900px;
+
       background-image: url(../img/frontpage_illustration.jpg);
-      background-repeat: no-repeat;
-      background-size: cover;
+      width: 100%;
+      height: 750px;
+      
       
     }
     .navbar {
@@ -227,5 +304,10 @@ button:hover {
     }
     .nav-links li {
       font-size: 1.8rem;
+    }
+    .item-row-narrow {
+    
+      max-width: 30vw;
+      
     }
 }

@@ -12,9 +12,11 @@
   <body>
     <header>
       <nav class="navbar">
-        <a href="index.html">
-        <img src="img/logo_worrt.png" alt="logo link to frontpage">
-        </a>
+        <div class="logo">
+          <a href="index.html" aria-label="Link to the Front Page">
+          <img src="img/logo_worrt.png" alt="logo link to frontpage">
+          </a>
+        </div>
         <div class="text-links">
           <div id="nav-customer">
         <ul class="nav-links">
@@ -37,6 +39,7 @@
       </nav>
     </header>
     <main>
+
       <h1>Products</h1>
       <div id="notifications-container"></div>
       <div id="product-details-container"></div>
@@ -46,12 +49,12 @@
       <p>Copyright &copy; 2021</p>
     </footer>
     <template id="product-template">
-      <div class="product-container">
+      <div class="product-container" style="background-color:#dfdfdf;">
         <div class="image-block">
       <img id="product-image" src="" alt="product image">
     </div>
       <div class="item-row" >
-        <h3 class="product-name"></h3>
+        <h2 class="product-name"></h2>
         <p class="product-description"></p>
         <p class="product-price"></p>
         <button>Add to cart</button>
@@ -63,7 +66,7 @@
     
 
     <template id="product-details-template">
-      <div id="product-div">
+      <div class="form" id="product-div">
         <h2 class="text-align-center">{Product Name}</h2>
         <div class="form-group">
           <label for="id">Id</label>
