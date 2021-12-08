@@ -35,9 +35,9 @@ const sendOptions = (filePath, response) => {
     });
     return response.end();
   }
-  
-  return responseUtils.notFound(response);
-  
+  else{
+    return responseUtils.notFound(response);
+  }
 
 };
 
@@ -267,6 +267,9 @@ const handleRequest = async(request, response) => {
     else{
       return registerUser(response, parsedRequestBody);
     }
+  }
+  else{
+    return responseUtils.methodNotAllowed(response);
   }
 };
 
