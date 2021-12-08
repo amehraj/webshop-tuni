@@ -1,13 +1,13 @@
-/**
- * Send all products as JSON
- *
- * @param {http.ServerResponse} response
- */
 const Product = require('../models/product');
 const responseUtils = require('../utils/responseUtils');
 
+/**
+ * Send all products as JSON
+ *
+ * @param {http.ServerResponse} response http response
+ */
 const getAllProducts = async response => {
-  // TODO: 10.2 Implement this
+  
   const products = await Product.find({});
   return responseUtils.sendJson(response, products, 200);
 };
@@ -22,6 +22,14 @@ const viewProduct = async(response, productId, currentUser) => {
       }
 };
 
+/**
+ * Delete products
+ * 
+ * @param {http.ServerResponse} response http response
+ * @param {string} productId product ID as String
+ * @param {object} currentUser mongoose document object
+ * 
+ */
 const deleteProduct = async(response, productId, currentUser) => {
   if(currentUser.role === 'customer'){
     return responseUtils.forbidden(response);
@@ -37,6 +45,15 @@ const deleteProduct = async(response, productId, currentUser) => {
   }
 };
 
+/**
+ * Update products
+ * 
+ * @param {http.ServerResponse} response http response
+ * @param {string} productId product ID as String
+ * @param {object} currentUser mongoose document object
+ * @param {object} productData mongoose document object
+ * 
+ */
 const updateProduct = async(response, productId, currentUser, productData) => {
   if(currentUser.role === 'customer'){
     return responseUtils.forbidden(response);
@@ -58,6 +75,14 @@ const updateProduct = async(response, productId, currentUser, productData) => {
   }
 };
 
+/**
+ * Create a new product
+ * 
+ * @param {http.ServerResponse} response http response 
+ * @param {object} productData mongoose document object
+ * @param {object} currentUser mongoose document object
+ * 
+ */
 const createProduct = async(response, productData, currentUser) => {
   if(currentUser.role === 'customer'){
     return responseUtils.forbidden(response);
