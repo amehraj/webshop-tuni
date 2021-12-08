@@ -229,6 +229,16 @@ button:hover {
   justify-content: center;
 }
 
+#cart-container button {
+  color: white;
+  background-color: #2D162F;
+}
+
+#users-container button {
+  color: white;
+  background-color: #2D162F;
+}
+
 
 @media only screen and (max-width: 600px) {
   .frontpage_image {
