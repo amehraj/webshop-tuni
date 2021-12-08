@@ -16,8 +16,7 @@ const allowedMethods = {
   '/api/register': ['POST'],
   '/api/users': ['GET'],
   '/api/products': ['GET', 'POST'],
-  '/api/orders' : ['GET', 'POST'],
-  '/api/createAdmin' : ['POST']
+  '/api/orders' : ['GET', 'POST']
 };
 
 /**
@@ -111,7 +110,7 @@ const handleRequest = async(request, response) => {
           return updateUser(response, userIdToUpdate[1], currentUser, requestBody);        
       }
       else{
-        return responseUtils.notFound(response);
+        return responseUtils.methodNotAllowed(response);
       }
     
   }
@@ -138,7 +137,7 @@ const handleRequest = async(request, response) => {
       return updateProduct(response, productIdToUpdate[1], currentUser, requestBody);
     }
     else {
-      return responseUtils.notFound(response);
+      return responseUtils.methodNotAllowed(response);
     }
   }
   if(matchOrdertId(filePath)) {
@@ -155,7 +154,7 @@ const handleRequest = async(request, response) => {
       return viewOrder(response, orderIdToSearch[1], currentUser);
     }
     else{
-      return responseUtils.notFound(response);
+      return responseUtils.methodNotAllowed(response);
     }
   }
   if (filePath === '/api/products' && method.toUpperCase() === 'POST') {
@@ -270,7 +269,7 @@ const handleRequest = async(request, response) => {
     }
   }
   else{
-    return responseUtils.notFound(response);
+    return responseUtils.methodNotAllowed(response);
   }
 };
 
