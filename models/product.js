@@ -2,11 +2,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const validatorPrice = (val) => {
-    if (val <= 0) {
-		return false;
-	} else {
-		return true;
-	}
+    return val > 0;
+
 };
 
 const productSchema = new Schema({

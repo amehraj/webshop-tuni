@@ -2,19 +2,12 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const validatorArray = (val) => {
-    if (val.length === 0) {
-		return false;
-	} else {
-		return true;
-	}
+    return val.length > 0;
+
 };
 
 const validatorQuantity = (val) => {
-    if (val < 1) {
-		return false;
-	} else {
-		return true;
-	}
+    return val > 0;
 };
 
 const orderedItem = new Schema({

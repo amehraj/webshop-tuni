@@ -2,7 +2,7 @@ const addToCart = productId => {
   // TODO 9.2
   // use addProductToCart(), available already from /public/js/utils.js
   // call updateProductAmount(productId) from this file
-  const addedProductId = addProductToCart(productId);
+  addProductToCart(productId);
   updateProductAmount(productId);
 };
 
@@ -113,7 +113,7 @@ const placeOrder = async() => {
     allProductsFromCart.forEach((product) => {
       const { name: id , amount } = product;
 
-      const productToFind = products.find(product => product._id === id);
+      const productToFind = products.find(singleProduct => singleProduct._id === id);
       const { name, price, description } = productToFind;
       const cartTemplateContainer = cartItemTemplate.content.cloneNode(true);
       cartTemplateContainer.querySelector('.item-row').id = `item-row-${id}`;

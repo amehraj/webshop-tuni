@@ -26,7 +26,7 @@
         let data = {};
         formData.forEach((value, key) => (data[key] = value));
         try{
-        const user = postOrPutJSON('api/register', 'POST', data);
+        postOrPutJSON('api/register', 'POST', data);
         createNotification('Registration Successful', 'notifications-container', true);
         } catch (error) {
            console.error(error);

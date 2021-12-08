@@ -25,32 +25,20 @@ const SCHEMA_DEFAULTS = {
 
 // You can use these SCHEMA_DEFAULTS when setting the validators for the User Schema. For example the default role can be accessed with SCHEMA_DEFAULTS.role.defaultValue
 const validatorName = (val) => {
-	if (val.length < SCHEMA_DEFAULTS.name.minLength || val.length > SCHEMA_DEFAULTS.name.maxLength) {
-		return false;
-	}
-	else {
-		return true;
-	}
+	return val.length >= SCHEMA_DEFAULTS.name.minLength && val.length <= SCHEMA_DEFAULTS.name.maxLength;
+
 };
 const validatorEmail = (val) => {
 	const regexString = SCHEMA_DEFAULTS.email.match;
 	return regexString.test(String(val).toLowerCase());
 };
+
 const validatorRole = (val) => {
-	if (val !== 'customer' && val !== 'admin') {
-		return false;
-	}
-	else {
-		return true;
-	}
+	return val === 'customer' || val === 'admin';
 };
+
 const validatorPassword = (val) => {
-	if (val.length < SCHEMA_DEFAULTS.password.minLength || !val || val === '') {
-		return false;
-	}
-	else {
-		return true;
-	}
+	return val.length >= SCHEMA_DEFAULTS.password.minLength && val && val !== '';
 };
 
 // TODO: 9.5 Implement the userSchema

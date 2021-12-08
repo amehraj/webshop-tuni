@@ -10,7 +10,7 @@ const form = document.querySelector('#product-form');
     let data = {};
     try {
     formData.forEach((value, key) => (data[key] = value));
-    const product = await postOrPutJSON('/api/products', 'POST', data);
+    await postOrPutJSON('/api/products', 'POST', data);
     createNotification('Product Added', 'notifications-container', true);
     } catch (error) {
         console.error(error);

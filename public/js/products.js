@@ -2,7 +2,7 @@ const addToCart = (productId, productName) => {
   // TODO 9.2
   // use addProductToCart(), available already from /public/js/utils.js
   // /public/js/utils.js also includes createNotification() function
-  const addedProductId = addProductToCart(productId);
+  addProductToCart(productId);
 
   createNotification(`Added ${productName} to cart!`, 'notifications-container', true);
 
@@ -27,15 +27,15 @@ const addToCart = (productId, productName) => {
   const productDetails = (id, name, description, price, image) => {
     removeElement('product-details-container', 'product-div');
 
-    const productDetails = productDetailsTemplate.content.cloneNode(true);
-    productDetails.querySelector('h2').textContent = name;
-    productDetails.querySelector('#id-input').value = id;
-    productDetails.querySelector('#name-input').value = name;
-    productDetails.querySelector('#description-input').value = description;
-    productDetails.querySelector('#price-input').value = price;
-    productDetails.querySelector('#image-input').value = image;
+    const productDetail = productDetailsTemplate.content.cloneNode(true);
+    productDetail.querySelector('h2').textContent = name;
+    productDetail.querySelector('#id-input').value = id;
+    productDetail.querySelector('#name-input').value = name;
+    productDetail.querySelector('#description-input').value = description;
+    productDetail.querySelector('#price-input').value = price;
+    productDetail.querySelector('#image-input').value = image;
 
-    productDetailsContainer.append(productDetails);
+    productDetailsContainer.append(productDetail);
 };
   try{
     const products = await getJSON('/api/products');
