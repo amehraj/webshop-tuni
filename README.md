@@ -1,6 +1,6 @@
 # Group 
 
-Member1:  Ali Mehraj, ali.mehraj@tuni.fi, student ID, 
+Member1:  Ali Mehraj, ali.mehraj@tuni.fi, 50508879, 
 resposible for: TODO, short description of duties 
 
 Member2:  Anna Knappe, anna.knappe@tuni.fi, 50333099, 
