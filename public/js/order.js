@@ -21,6 +21,8 @@ const viewSingleOrderDetails = async (orderId) => {
       orderDiv.querySelector('#customer-id-input').value = customerId;
       detailsContainer.append(orderDiv);
 
+      detailsContainer.style.display = "block";
+
       const singleOrder = await viewSingleOrderDetails(id);
       singleOrder.items.forEach((item) => {
         const singleOrderDiv = singleOrderDetailsTemplate.content.cloneNode(true);
@@ -30,8 +32,13 @@ const viewSingleOrderDetails = async (orderId) => {
         singleOrderDiv.querySelector('#price-input').value = item.product.price;
         singleOrderDiv.querySelector('#description-input').value = item.product.description;
         singleOrderDiv.querySelector('#quantity-input').value = item.quantity;
-        detailsContainer.append(singleOrderDiv);
+        detailsContainer.append(singleOrderDiv);  
       });
+      window.onclick = function(event) {
+        if (event.target == detailsContainer) {
+          detailsContainer.style.display = "none";
+        }
+      }
     };
     try{
       const orders = await getJSON('/api/orders');
