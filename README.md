@@ -1,7 +1,7 @@
 # Group 
 
 Member1:  Ali Mehraj, ali.mehraj@tuni.fi, 50508879, 
-responsible for: TODO, short description of duties 
+responsible for: Routes implementation, Controller functions implementation for User, Product & Order, Front-end helper js function implementation for User, Product & Order, Implement HTML for User, Product & Order, Mocha Tests implementation for coverage, Heroku Deployment, SonarQube Technical Debt fixation.
 
 Member2:  Anna Knappe, anna.knappe@tuni.fi, 50333099, 
 responsible for: TODO, short description of duties 
@@ -62,12 +62,15 @@ A web shop with vanilla HTML, CSS.
 │   └── responseUtils.js    --> handles http responses
 └── test                    --> tests
 │   ├── auth                --> tests related to authentication
-│   │   └── autj.test.js    
+│   │   └── auth.test.js    
 │   ├── controllers         --> tests related to controllers
 │   │   ├── products.test.js
 │   │   └── users.test.js   
 └── └── own                 --> mocha tests of all new content
-│   │   └── own.test.js     
+│   │   └── own.test.js     --> test related to static product fetch from json
+│   │   └── orderSchema.test.js     --> tests related to Order Schema for validation
+│   │   └── ownRoutes.test.js  --> additional tests related to routes 
+│   │   └── productSchema.test.js  --> tests related to Product Schema for validation
 └── setup                   --> Folder containing files needed for initializing the webshop
 │   ├── create-orders.js    --> creates orders
 │   ├── products.json       --> JSON file containing all initial products for the database
@@ -76,7 +79,6 @@ A web shop with vanilla HTML, CSS.
 
 ```
 
-TODO: describe added files here and give them short descriptions
 
 ## The architecture 
 
