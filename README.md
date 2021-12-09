@@ -70,9 +70,9 @@ A web shop with vanilla HTML, CSS.
 │   │   └── own.test.js     -->
 └── setup                   --> TODO
 │   ├── create-orders.js    --> TODO
-│   ├── products.json       --> TODO
+│   ├── products.json       --> JSON file containing all initial products for the database
 │   ├── reset-db.js         --> TODO
-│   └── users.json          --> TODO
+│   └── users.json          --> JSON file containing all initial users for the database
 
 ```
 
