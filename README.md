@@ -1,7 +1,7 @@
 # Group 76
 
 Member1:  Ali Mehraj, ali.mehraj@tuni.fi, 50508879, 
-responsible for: Routes implementation, Controller functions implementation for User, Product & Order, Front-end helper js function implementation for User, Product & Order, Implement HTML for User, Product & Order, Mocha Tests implementation for coverage, Heroku Deployment, SonarQube Technical Debt fixation.
+responsible for: Routes implementation, Controller functions implementation for User, Product & Order, Front-end helper js function implementation for User, Product & Order, implemention of HTML pages for User, Product & Order, Mocha Tests implementation for coverage, Heroku Deployment with MongoDB Atlas, SonarQube Technical Debt fixation.
 
 Member2:  Anna Knappe, anna.knappe@tuni.fi, 50333099, 
 responsible for: TODO, short description of duties 
@@ -10,7 +10,7 @@ responsible for: TODO, short description of duties
 
 # WebDev1 coursework assignment
 
-A web shop with vanilla HTML, CSS.
+A web shop with vanilla HTML, CSS, Node.js & MongoDB.
 
 
 ### The project structure
@@ -106,7 +106,6 @@ Issue 13: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/is
 
 ## Security concerns
 
-TODO: list the security threats represented in the course slides.
-Document how your application protects against the threats.
-You are also free to add more security threats + protection here, if you will.
+In our course we were taught about security threats such as Cross Site Scripting, Cross-Site Request Forgery, Injection Attacks, Directory Traversal. <br />
+Request headers are set with 'Access-Control-Allow-Methods' and 'Access-Control-Allow-Headers' to avoid unwanted method requests. Basic Authentication is implemented for prevention of unauthenticated usage. Unauthorized access has been blocked with user validation. Also user input is validated using mongoose schema validation. Although this does not prevent Injection Attacks completely, it creates a primary barrier for the application against such attacks.
 
