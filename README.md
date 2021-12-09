@@ -88,19 +88,19 @@ UML diagrams would be highly appreciated.
 
 ## Tests and documentation
 
-Issue 1: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/18 (Ensure Product Schema Validation. If price is zero / 0, should respond with error. Test implemented in test/own/productSchema.test.js)
-Issue 2: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/17 (Ensure Product Schema Validation. If price is negative, should respond with error. Test implemented in test/own/productSchema.test.js)
-Issue 3: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/19 (Ensure Order Schema Validation. If quantity is negative, should respond with error. Test implemented in test/own/orderSchema.test.js)
-Issue 4: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/20 (Ensure Order Schema Validation. If items is zero, should respond with error. Test implemented in test/own/orderSchema.test.js)
-Issue 5: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/22 (Ensure blocking of wrong method for register route. If wrong method if given should respond with 405. Test implemented in test/own/ownRoutes.test.js)
-Issue 6: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/23 (Ensure admins can create new admins. Test implemented in test/own/ownRoutes.test.js)
-Issue 7: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/24. (Ensure customers cannot create new admins. Test implemented in test/own/ownRoutes.test.js)
-Issue 8: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/26 (Ensure get All Products respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js)
-Issue 9: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/25 (Ensure getAllUsers respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js)
-Issue 10: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/27 (Ensure get All Orders respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js)
-Issue 11: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/28 (Ensure get single Product respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js)
-Issue 12: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/30 (Ensure get single User respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js)
-Issue 13: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/29 (Ensure get single Order respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js)
+Issue 1: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/18 (Ensure Product Schema Validation. If price is zero / 0, should respond with error. Test implemented in test/own/productSchema.test.js) <br />
+Issue 2: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/17 (Ensure Product Schema Validation. If price is negative, should respond with error. Test implemented in test/own/productSchema.test.js) <br />
+Issue 3: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/19 (Ensure Order Schema Validation. If quantity is negative, should respond with error. Test implemented in test/own/orderSchema.test.js) <br />
+Issue 4: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/20 (Ensure Order Schema Validation. If items is zero, should respond with error. Test implemented in test/own/orderSchema.test.js) <br />
+Issue 5: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/22 (Ensure blocking of wrong method for register route. If wrong method if given should respond with 405. Test implemented in test/own/ownRoutes.test.js) <br />
+Issue 6: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/23 (Ensure admins can create new admins. Test implemented in test/own/ownRoutes.test.js) <br />
+Issue 7: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/24. (Ensure customers cannot create new admins. Test implemented in test/own/ownRoutes.test.js) <br />
+Issue 8: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/26 (Ensure get All Products respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
+Issue 9: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/25 (Ensure getAllUsers respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
+Issue 10: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/27 (Ensure get All Orders respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
+Issue 11: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/28 (Ensure get single Product respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
+Issue 12: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/30 (Ensure get single User respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
+Issue 13: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/29 (Ensure get single Order respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
 
 
 
