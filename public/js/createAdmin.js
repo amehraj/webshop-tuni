@@ -16,7 +16,7 @@ const submitButton = document.querySelector('#btnRegister');
         let data = {};
         formData.forEach((value, key) => (data[key] = value));
         try{
-        const user = await postOrPutJSON('api/register', 'POST', data);
+        await postOrPutJSON('api/register', 'POST', data);
         createNotification('Admin Creation Successful', 'notifications-container', true);
         } catch (error) {
            console.error(error);

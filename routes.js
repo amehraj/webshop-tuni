@@ -95,20 +95,23 @@ const handleRequest = async(request, response) => {
       if(request.headers.accept !== 'application/json'){
         return responseUtils.contentTypeNotAcceptable(response);
       }
+      //Get single user
       if(methodOfRequest === 'GET'){
           const userIdToSearch = url.split("/api/users/");
           return viewUser(response, userIdToSearch[1], currentUser);
       }
+      //Delete single user
       if(methodOfRequest === 'DELETE'){
           const userIdToDelete = url.split("/api/users/");
           return deleteUser(response, userIdToDelete[1], currentUser);
       }
-        
+      //modify single user  
       if(methodOfRequest === 'PUT'){
           const requestBody = await parseBodyJson(request);
           const userIdToUpdate = url.split("/api/users/");
           return updateUser(response, userIdToUpdate[1], currentUser, requestBody);        
       }
+      //handle unallowed methods
       else{
         return responseUtils.methodNotAllowed(response);
       }
@@ -123,19 +126,23 @@ const handleRequest = async(request, response) => {
     if(request.headers.accept !== 'application/json'){
       return responseUtils.contentTypeNotAcceptable(response);
     }
+    //Get single product
     if(methodOfRequest === 'GET'){
       const productIdToSearch = url.split("/api/products/");
       return viewProduct(response, productIdToSearch[1], currentUser);
     }
+    //Delete single product
     if(methodOfRequest === 'DELETE'){
       const productIdToDelete = url.split("/api/products/");
       return deleteProduct(response, productIdToDelete[1], currentUser);
     }
+    //Update single product
     if(methodOfRequest === 'PUT'){
       const requestBody = await parseBodyJson(request);
       const productIdToUpdate = url.split("/api/products/");
       return updateProduct(response, productIdToUpdate[1], currentUser, requestBody);
     }
+    //handle unallowed methods
     else {
       return responseUtils.methodNotAllowed(response);
     }
@@ -149,14 +156,17 @@ const handleRequest = async(request, response) => {
     if(request.headers.accept !== 'application/json'){
       return responseUtils.contentTypeNotAcceptable(response);
     }
+    //Get single Order
     if(methodOfRequest === 'GET'){
       const orderIdToSearch = url.split("/api/orders/");
       return viewOrder(response, orderIdToSearch[1], currentUser);
     }
+    //handle unallowed methods
     else{
       return responseUtils.methodNotAllowed(response);
     }
   }
+  //Create Product
   if (filePath === '/api/products' && method.toUpperCase() === 'POST') {
     const currentUser = await getCurrentUser(request);
     if(!currentUser){
@@ -172,6 +182,7 @@ const handleRequest = async(request, response) => {
     const parsedRequestBody = await parseBodyJson(request);
     return createProduct(response, parsedRequestBody, currentUser);
   }
+  //Create Order
   if (filePath === '/api/orders' && method.toUpperCase() === 'POST') {
     const currentUser = await getCurrentUser(request);
     if(!currentUser){

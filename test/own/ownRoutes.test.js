@@ -43,9 +43,7 @@ const customerUser = { ...users.find(u => u.role === 'customer') };
 
 const adminCredentials = encodeCredentials(adminUser.email, adminUser.password);
 const customerCredentials = encodeCredentials(customerUser.email, customerUser.password);
-const invalidCredentials = encodeCredentials(adminUser.email, customerUser.password);
 
-const unknownUrls = [`/${generateRandomString(20)}.html`, `/api/${generateRandomString(20)}`];
 
 describe('Own Routes', () => {
     let allUsers;
@@ -168,7 +166,6 @@ describe('Own Routes', () => {
             describe('Get Single User', () => {
                 let testUser;
                 let url;
-                let unknownId;
           
                 beforeEach(async () => {
                   const tempUser = users.find(u => u.role === 'admin' && u.email !== adminUser.email);
