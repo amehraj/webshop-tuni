@@ -209,6 +209,11 @@ button:hover {
   opacity: 0.8;
 }
 
+.btn-primary {
+  color: white;
+  background-color: #2D162F;
+}
+
 .background-lightgreen {
   background-color: lightgreen;
 }
