@@ -4,7 +4,7 @@ Member1:  Ali Mehraj, ali.mehraj@tuni.fi, 50508879,
 responsible for: Routes implementation, Controller functions implementation for User, Product & Order, Front-end helper js function implementation for User, Product & Order, implemention of HTML pages for User, Product & Order, Mocha Tests implementation for coverage, Heroku Deployment with MongoDB Atlas, SonarQube Technical Debt fixation.
 
 Member2:  Anna Knappe, anna.knappe@tuni.fi, 50333099, 
-responsible for: TODO, short description of duties 
+responsible for: CSS and the layout design, Frontpage header image & product images, Responsiveness, Accessibility, Mongoose schemas, JSDoc documentation
 
 
 
