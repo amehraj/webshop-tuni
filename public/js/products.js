@@ -28,6 +28,8 @@ const addToCart = (productId, productName) => {
   const productDetails = (id, name, description, price, image) => {
     removeElement('product-details-container', 'product-div');
 
+    productDetailsContainer.style.display = "block";
+
     const productDetail = productDetailsTemplate.content.cloneNode(true);
     productDetail.querySelector('h2').textContent = name;
     productDetail.querySelector('#id-input').value = id;
@@ -37,6 +39,12 @@ const addToCart = (productId, productName) => {
     productDetail.querySelector('#image-input').value = image;
 
     productDetailsContainer.append(productDetail);
+
+    window.onclick = function(event) {
+      if (event.target == productDetailsContainer) {
+        productDetailsContainer.style.display = "none";
+      }
+    }
 };
   try{
     const products = await getJSON('/api/products');

@@ -73,6 +73,8 @@
   const showEditForm = (id, name, email, role) => {
     removeElement('modify-user', 'edit-user-form');
 
+    modifyContainer.style.display = "block";
+
     const form = formTemplate.content.cloneNode(true);
     form.querySelector('h2').textContent = `Modify user ${name}`;
     form.querySelector('#id-input').value = id;
@@ -82,7 +84,16 @@
 
     modifyContainer.append(form);
     modifyContainer.querySelector('form').addEventListener('submit', updateUser);
+    
+    window.onclick = function(event) {
+      if (event.target == modifyContainer) {
+        modifyContainer.style.display = "none";
+      }
+    }
+
   };
+
+  
 
   try {
     const users = await getJSON('/api/users');

@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat|Barlow">
     <title>Products</title>
   </head>
-
   <body>
     <header>
       <nav class="navbar">
@@ -31,7 +30,6 @@
             <li><a href="createAdmin.html">Create Admin</a></li>
             <li><a href="addproducts.html">Add Products</a></li>
             <li><a href="changeProduct.html">Modify Products</a></li>
-
           </ul>
         </div>
         </ul>
@@ -39,10 +37,9 @@
       </nav>
     </header>
     <main>
-
       <h1>Products</h1>
       <div id="notifications-container"></div>
-      <div id="product-details-container"></div>
+      <div id="product-details-container" class="modal"></div>
       <div id="products-container"></div>
     </main>
     <footer>
@@ -62,9 +59,6 @@
       </div>
       </div>
     </template>
-
-    
-
     <template id="product-details-template">
       <div class="form" id="product-div">
         <h2 class="text-align-center">{Product Name}</h2>

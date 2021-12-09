@@ -47,6 +47,8 @@
     
       const showEditForm = (id, name, description, price, image) => {
         removeElement('modify-product', 'edit-product-form');
+
+        modifyContainer.style.display = "block";
     
         const form = formTemplate.content.cloneNode(true);
         form.querySelector('h2').textContent = `Modify Product ${name}`;
@@ -58,6 +60,12 @@
     
         modifyContainer.append(form);
         modifyContainer.querySelector('form').addEventListener('submit', updateProduct);
+
+        window.onclick = function(event) {
+          if (event.target == modifyContainer) {
+            modifyContainer.style.display = "none";
+          }
+        }
     };
 
     try{
