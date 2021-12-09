@@ -1,10 +1,10 @@
 # Group 
 
 Member1:  Ali Mehraj, ali.mehraj@tuni.fi, 50508879, 
-resposible for: TODO, short description of duties 
+responsible for: TODO, short description of duties 
 
 Member2:  Anna Knappe, anna.knappe@tuni.fi, 50333099, 
-resposible for: TODO, short description of duties 
+responsible for: TODO, short description of duties 
 
 
 
@@ -33,13 +33,13 @@ A web shop with vanilla HTML, CSS.
 │   └──  order.js           --> mongoose schema defining user's order of products 
 ├── public                  --> root folder containing all html, css and front-end js files
 │   ├── 404.html            --> the html page displayed when 404 error occurs
-│   ├── addproducts.html    --> html page with a form to add more produccts, for admins
+│   ├── addproducts.html    --> html page with a form to add more products, for admins
 │   ├── cart.html           --> html page for the content of shopping cart, for customers
 │   ├── changeProducts.html --> html page listing all the products in the database with buttons to modify and remove them, for admins
 │   ├── createAdmin.html    --> html page with a form to add new admin, for admins
 │   ├── index.html          --> the landing html page
-│   ├── orders.html         --> html page for dispalying either all orders for admins, or customoer's orders for customers
-│   ├── products.html       --> html page for dispalying all products in the database, for customers and admins
+│   ├── orders.html         --> html page for displaying either all orders for admins, or customer's orders for customers
+│   ├── products.html       --> html page for displaying all products in the database, for customers and admins
 │   ├── register.html       --> html page with a form to register a new customer
 │   ├── users.html          --> html page displaying all users in the database, for admins
 │   ├── img                 --> image folder
