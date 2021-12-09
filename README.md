@@ -17,17 +17,17 @@ A web shop with vanilla HTML, CSS.
 
 ```
 .
-├── index.js                --> TODO
-├── package.json            --> TODO
-├── routes.js               --> TODO
-├── auth                    --> TODO
-│   └──  auth.js            --> TODO
-├── controllers             --> TODO
-│   ├── orders.js           -->   ...
-│   ├── products.js         -->   ...
+├── index.js                --> creates the node server
+├── package.json            --> metadata: dependencies, run scripts, and the entry point to our package
+├── routes.js               --> File handling the routing
+├── auth                    --> Files that handle the authorization
+│   └──  auth.js            --> Identifies the current user and exports it
+├── controllers             --> All files functioning as controllers
+│   ├── orders.js           --> controller for order
+│   ├── products.js         --> controller for product
 │   └── users.js            --> controller for user
-├── models                  --> 
-│   ├──  db.js              -->   
+├── models                  --> mongoose schemas and connection to the database
+│   ├──  db.js              --> connects to the database
 │   ├──  user.js            --> mongoose schema defining a user
 │   ├──  product.js         --> mongoose schema defining a product
 │   └──  order.js           --> mongoose schema defining user's order of products 
@@ -35,7 +35,7 @@ A web shop with vanilla HTML, CSS.
 │   ├── 404.html            --> the html page displayed when 404 error occurs
 │   ├── addproducts.html    --> html page with a form to add more products, for admins
 │   ├── cart.html           --> html page for the content of shopping cart, for customers
-│   ├── changeProducts.html --> html page listing all the products in the database with buttons to modify and remove them, for admins
+│   ├── changeProducts.html --> html page listing all the products in the database with option to modify and remove them, for admins
 │   ├── createAdmin.html    --> html page with a form to add new admin, for admins
 │   ├── index.html          --> the landing html page
 │   ├── orders.html         --> html page for displaying either all orders for admins, or customer's orders for customers
@@ -56,22 +56,22 @@ A web shop with vanilla HTML, CSS.
 │   │   └── utils.js        --> js scripts for communication with the server
 │   └── css                 --> CSS styles folder
 │   │   └── styles.css      --> CSS file containing all UI styling
-├── utils                   --> TODO
-│   ├── render.js           --> TODO
-│   ├── requestUtils.js     --> TODO
-│   └── responseUtils.js    --> TODO
+├── utils                   --> utilities folder
+│   ├── render.js           --> renders the files from ./public directory
+│   ├── requestUtils.js     --> handles http requests
+│   └── responseUtils.js    --> handles http responses
 └── test                    --> tests
-│   ├── auth                --> TODO
-│   │   └── autj.test.js    -->
-│   ├── controllers         --> TODO
-│   │   ├── products.test.js-->
-│   │   └── users.test.js   -->
-└── └── own                 --> TODO
-│   │   └── own.test.js     -->
-└── setup                   --> TODO
-│   ├── create-orders.js    --> TODO
+│   ├── auth                --> tests related to authentication
+│   │   └── autj.test.js    
+│   ├── controllers         --> tests related to controllers
+│   │   ├── products.test.js
+│   │   └── users.test.js   
+└── └── own                 --> mocha tests of all new content
+│   │   └── own.test.js     
+└── setup                   --> Folder containing files needed for initializing the webshop
+│   ├── create-orders.js    --> creates orders
 │   ├── products.json       --> JSON file containing all initial products for the database
-│   ├── reset-db.js         --> TODO
+│   ├── reset-db.js         --> resets the database
 │   └── users.json          --> JSON file containing all initial users for the database
 
 ```
