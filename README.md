@@ -37,13 +37,19 @@ A web shop with vanilla HTML, CSS.
 │   ├── index.html          -->
 │   ├── producst.html       -->   
 │   ├── register.html       -->
-│   ├── users.html
+│   ├── users.html          -->
+│   ├── addproducts.html    -->
+│   ├── changeProducts.html -->
+│   ├── createAdmin.html -->
 │   ├── img                 --> 
-│   │   ├── ...             -->
-│   │   └── ...             -->
+│   │   ├── ...             --> logo and header image in three different sizes
 │   ├── js                  -->
+│   │   ├── addProduct.js   -->
 │   │   ├── adminUsers.js   -->
 │   │   ├── cart.js         -->
+│   │   ├── changeProduct.js-->
+│   │   ├── createAdmin.js  -->
+│   │   ├── order.js        -->
 │   │   ├── products.js     -->
 │   │   ├── register.js     -->
 │   │   └── utils.js        --> 
@@ -52,8 +58,7 @@ A web shop with vanilla HTML, CSS.
 ├── utils                   --> TODO
 │   ├── render.js           --> TODO
 │   ├── requestUtils.js     --> TODO
-│   ├── responseUtils.js    --> TODO
-│   └── users.js            --> TODO
+│   └── responseUtils.js    --> TODO
 └── test                    --> tests
 │   ├── auth                --> TODO
 │   │   └── autj.test.js    -->
@@ -61,8 +66,12 @@ A web shop with vanilla HTML, CSS.
 │   │   ├── products.test.js-->
 │   │   └── users.test.js   -->
 └── └── own                 --> TODO
-│   │   └── uown.test.js    -->
-
+│   │   └── own.test.js     -->
+└── setup                   --> TODO
+│   ├── create-orders.js    --> TODO
+│   ├── products.json       --> TODO
+│   ├── reset-db.js         --> TODO
+│   └── users.json          --> TODO
 
 ```
 
