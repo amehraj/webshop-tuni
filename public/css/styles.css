@@ -209,7 +209,7 @@ button:hover {
   opacity: 0.8;
 }
 
-.btn-primary {
+.btn-primary, #update-button{
   color: white;
   background-color: #2D162F;
 }
