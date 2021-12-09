@@ -28,33 +28,34 @@ A web shop with vanilla HTML, CSS.
 │   └── users.js            --> controller for user
 ├── models                  --> 
 │   ├──  db.js              -->   
-│   ├──  user.js            -->
-│   ├──  product.js         -->   
-│   └──  order.js           TODO
-├── public                  --> 
-│   ├── 404.html            -->   
-│   ├── cart.html           -->
-│   ├── index.html          -->
-│   ├── producst.html       -->   
-│   ├── register.html       -->
-│   ├── users.html          -->
-│   ├── addproducts.html    -->
-│   ├── changeProducts.html -->
-│   ├── createAdmin.html -->
-│   ├── img                 --> 
+│   ├──  user.js            --> mongoose schema defining a user
+│   ├──  product.js         --> mongoose schema defining a product
+│   └──  order.js           --> mongoose schema defining user's order of products 
+├── public                  --> root folder containing all html, css and front-end js files
+│   ├── 404.html            --> the html page displayed when 404 error occurs
+│   ├── addproducts.html    --> html page with a form to add more produccts, for admins
+│   ├── cart.html           --> html page for the content of shopping cart, for customers
+│   ├── changeProducts.html --> html page listing all the products in the database with buttons to modify and remove them, for admins
+│   ├── createAdmin.html    --> html page with a form to add new admin, for admins
+│   ├── index.html          --> the landing html page
+│   ├── orders.html         --> html page for dispalying either all orders for admins, or customoer's orders for customers
+│   ├── products.html       --> html page for dispalying all products in the database, for customers and admins
+│   ├── register.html       --> html page with a form to register a new customer
+│   ├── users.html          --> html page displaying all users in the database, for admins
+│   ├── img                 --> image folder
 │   │   ├── ...             --> logo and header image in three different sizes
 │   ├── js                  -->
-│   │   ├── addProduct.js   -->
-│   │   ├── adminUsers.js   -->
-│   │   ├── cart.js         -->
-│   │   ├── changeProduct.js-->
-│   │   ├── createAdmin.js  -->
-│   │   ├── order.js        -->
-│   │   ├── products.js     -->
-│   │   ├── register.js     -->
-│   │   └── utils.js        --> 
-│   └── css                 -->
-│   │   └── styles.css      --> 
+│   │   ├── addProduct.js   --> js scripts supporting the functionality of addproducts.html
+│   │   ├── adminUsers.js   --> js scripts for deleting and modifying users
+│   │   ├── cart.js         --> js scripts supporting the functionality of cart.html
+│   │   ├── changeProduct.js--> js scripts for deleting and modifying products
+│   │   ├── createAdmin.js  --> js scripts supporting the functionality of createAdmin.html
+│   │   ├── order.js        --> js scripts supporting the functionality of orders.html
+│   │   ├── products.js     --> js scripts supporting the functionality of products.html
+│   │   ├── register.js     --> js scripts supporting the functionality of register.html
+│   │   └── utils.js        --> js scripts for communication with the server
+│   └── css                 --> CSS styles folder
+│   │   └── styles.css      --> CSS file containing all UI styling
 ├── utils                   --> TODO
 │   ├── render.js           --> TODO
 │   ├── requestUtils.js     --> TODO
