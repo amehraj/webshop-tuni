@@ -263,8 +263,8 @@ const handleRequest = async(request, response) => {
     // TODO: 8.4 Implement registration
     // You can use parseBodyJson(request) method from utils/requestUtils.js to parse request body.
     const parsedRequestBody = await parseBodyJson(request);
+    const currentUser = await getCurrentUser(request);
     if(parsedRequestBody.isAdminCreation === 'isAdminCreation'){
-      const currentUser = await getCurrentUser(request);
       if(!currentUser){
         return responseUtils.basicAuthChallenge(response);
       }
@@ -276,7 +276,12 @@ const handleRequest = async(request, response) => {
       }
     }
     else{
-      return registerUser(response, parsedRequestBody);
+      if(currentUser){
+        return responseUtils.forbidden(response);
+      }
+      else{
+        return registerUser(response, parsedRequestBody);
+      }
     }
   }
   else{

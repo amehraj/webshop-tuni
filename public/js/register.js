@@ -12,7 +12,7 @@
  const form = document.querySelector('#register-form');
 
 
- form.addEventListener('submit', (event) => {
+ form.addEventListener('submit', async (event) => {
      event.preventDefault();
 
      let formData = new FormData(form);
@@ -26,7 +26,7 @@
         let data = {};
         formData.forEach((value, key) => (data[key] = value));
         try{
-        postOrPutJSON('api/register', 'POST', data);
+        await postOrPutJSON('api/register', 'POST', data);
         createNotification('Registration Successful', 'notifications-container', true);
         } catch (error) {
            console.error(error);
