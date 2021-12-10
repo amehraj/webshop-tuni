@@ -97,7 +97,7 @@ The website follows MVC model in its architecture. The corresponding files are l
 
 ## Tests and documentation
 
-Tests are implemented using Mocha to test functionality of the web shop. The tests are located in the test folder in the root directory. We were able to achieve around 97% branch coverage using both Plussa Mocha tests and our own tests. Own tests are located under the subdirectory own in tests folders. Some of our test along with the Gitlab issues are given below:
+Tests are implemented using Mocha to test functionality of the web shop. The tests are located in the test folder in the root directory of the project. We were able to achieve around 97% branch coverage using both Plussa Mocha tests and our own tests. Own tests are located under the subdirectory own in test folder. Some of our tests along with the Gitlab issues are given below:
 
 Issue 1: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/18 (Ensure Product Schema Validation. If price is zero / 0, should respond with error. Test implemented in test/own/productSchema.test.js) <br />
 Issue 2: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/17 (Ensure Product Schema Validation. If price is negative, should respond with error. Test implemented in test/own/productSchema.test.js) <br />
