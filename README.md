@@ -82,8 +82,17 @@ A web shop with vanilla HTML, CSS, Node.js & MongoDB.
 
 ## The architecture 
 
-TODO: describe the system, important buzzwords include MVC and REST.
-UML diagrams would be highly appreciated.
+For the purpose of the exercise, the UI of the webshop is a mock-up to display the back-end functionality and is not intended to function as an actual webshop. The customer and admin features are all visible as separate links in the nav bar, but access to them is restricted based on the current user role. The demonstrated functions include registering a new customer, viewing all products and placing them in cart, viewing the cart and placing an order, and viewing one’s own orders for customers, and additionally adding an admin, viewing all users and modifying their roles, and viewing all orders for admins. 
+
+CUSTOMER LOGIN:
+e-mail: customer@email.com
+password: 1234567890
+
+ADMIN LOGIN:
+e-mail: admin@email.com
+password: 1234567890
+
+The website follows MVC model in its architecture. The corresponding files are located in folders models, public, and controllers. The Model of the application includes mongoose schemas and access to the database to fetch, add, modify and remove entries. The view handles the display of the data from models and the controllers handles all communication between everything.
 
 
 ## Tests and documentation
