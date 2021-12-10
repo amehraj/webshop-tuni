@@ -1,10 +1,10 @@
 # Group 76
 
 Member1:  Ali Mehraj, ali.mehraj@tuni.fi, 50508879, 
-responsible for: Routes implementation, Controller functions implementation for User, Product & Order, Front-end helper js function implementation for User, Product & Order, implemention of HTML pages for User, Product & Order, Mocha Tests implementation for coverage, Heroku Deployment with MongoDB Atlas, SonarQube Technical Debt fixation.
+responsible for: Routes implementation, Controller functions implementation for User, Product & Order, Front-end helper js function implementation for User, Product & Order, Implemention of HTML pages for User, Product & Order, Mocha Tests implementation for coverage, Heroku Deployment with MongoDB Atlas, SonarQube Technical Debt fixation.
 
 Member2:  Anna Knappe, anna.knappe@tuni.fi, 50333099, 
-responsible for: CSS and the layout design, Frontpage header image & product images, Responsiveness, Accessibility, Mongoose schemas, JSDoc documentation
+responsible for: CSS and the layout design, Frontpage header image & product images, Responsiveness, Accessibility, Mongoose schemas, JSDoc documentation, GitOps implementation.
 
 
 
@@ -97,6 +97,8 @@ The website follows MVC model in its architecture. The corresponding files are l
 
 ## Tests and documentation
 
+Tests are implemented using Mocha to test functionality of the web shop. The tests are located in the test folder in the root directory. We were able to achieve around 97% branch coverage using both Plussa Mocha tests and our own tests. Own tests are located under the subdirectory own in tests folders. Some of our test along with the Gitlab issues are given below:
+
 Issue 1: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/18 (Ensure Product Schema Validation. If price is zero / 0, should respond with error. Test implemented in test/own/productSchema.test.js) <br />
 Issue 2: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/17 (Ensure Product Schema Validation. If price is negative, should respond with error. Test implemented in test/own/productSchema.test.js) <br />
 Issue 3: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/19 (Ensure Order Schema Validation. If quantity is negative, should respond with error. Test implemented in test/own/orderSchema.test.js) <br />
@@ -117,4 +119,20 @@ Issue 13: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/is
 
 In our course we were taught about security threats such as Cross Site Scripting, Cross-Site Request Forgery, Injection Attacks, Directory Traversal. <br />
 Request headers are set with 'Access-Control-Allow-Methods' and 'Access-Control-Allow-Headers' to avoid unwanted method requests. Basic Authentication is implemented for prevention of unauthenticated usage. Unauthorized access has been blocked with user validation. Also user input is validated using mongoose schema validation. Although this does not prevent Injection Attacks completely, it creates a primary barrier for the application against such attacks.
+
+
+## Instructions to run the application
+
+Run Locally: The application can be cloned using SSH 'git@course-gitlab.tuni.fi:webdev1-autumn-2021/webdev1-group76.git' or HTTPS 'https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76.git' to run locally. After cloning, the dependencies need to be installed with 'npm install'. MongoDB needs to be running on the machine to run the application. To start the application the following command needs to be run 'npm start'. (For Dev mode: npm run nodemon). <br />
+
+Run in Heroku: The application is already deployed in Heroku: https://webshop-tuni-webdev1.herokuapp.com/   <br />
+The application is connected to MongoDB Atlas and users for both customer and admin are creted for usage.  <br />
+
+CUSTOMER LOGIN:
+e-mail: customer@email.com
+password: 1234567890
+
+ADMIN LOGIN:
+e-mail: admin@email.com
+password: 1234567890
 
