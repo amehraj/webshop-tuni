@@ -126,7 +126,7 @@ Request headers are set with 'Access-Control-Allow-Methods' and 'Access-Control-
 Run Locally: The application can be cloned using SSH 'git@course-gitlab.tuni.fi:webdev1-autumn-2021/webdev1-group76.git' or HTTPS 'https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76.git' to run locally. After cloning, the dependencies need to be installed with 'npm install'. MongoDB needs to be running on the machine to run the application. To start the application the following command needs to be run 'npm start'. (For Dev mode: npm run nodemon). <br />
 
 Run in Heroku: The application is already deployed in Heroku: https://webshop-tuni-webdev1.herokuapp.com/   <br />
-The application is connected to MongoDB Atlas and users for both customer and admin are creted for usage.  <br />
+The application is connected to MongoDB Atlas and users for both customer and admin are created for usage.  <br />
 
 CUSTOMER LOGIN:
 e-mail: customer@email.com
