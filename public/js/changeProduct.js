@@ -37,7 +37,7 @@
         removeElement('modify-product', 'edit-product-form');
         try {
           const product = await deleteResource(`/api/products/${productId}`);
-          removeElement('products-container', `product-${productId}`);
+          removeElement('products-container', `product-container-${productId}`);
           return createNotification(`Deleted Product ${product.name}`, 'notifications-container');
         } catch (error) {
           console.error(error);
@@ -82,6 +82,7 @@
         const bgColor = Math.floor(Math.random() * (containerColors.length));
         
         productContainer.querySelector('.product-container').style.backgroundColor = containerColors[bgColor];
+        productContainer.querySelector('.product-container').id = `product-container-${id}`;
         productContainer.querySelector('.item-row-narrow').id = `product-${id}`;
         productContainer.querySelector('.product-name').id = `name-${id}`;
         productContainer.querySelector('.product-name').textContent = name;
