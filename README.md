@@ -85,7 +85,8 @@ A web shop with vanilla HTML, CSS, Node.js & MongoDB.
 For the purpose of the exercise, the UI of the webshop is a mock-up to display the back-end functionality and is not intended to function as an actual webshop. The customer and admin features are all visible as separate links in the nav bar, but access to them is restricted based on the current user role. The demonstrated functions include registering a new customer, viewing all products and placing them in cart, viewing the cart and placing an order, and viewing one’s own orders for customers, and additionally adding an admin, viewing all users and modifying their roles, and viewing all orders for admins. 
 
 ![usecase](/uploads/ad3a7d8ea0010c1d878ec9ef8d0a339f/usecase.png)
-Use case diagram
+
+image: Use case diagram for customer and admin users
 
 CUSTOMER LOGIN:
 e-mail: customer@email.com
