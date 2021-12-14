@@ -98,6 +98,33 @@ password: 1234567890
 
 The website follows MVC model in its architecture. The corresponding files are located in folders models, public, and controllers. The Model of the application includes mongoose schemas and access to the database to fetch, add, modify and remove entries. The view handles the display of the data from models and the controllers handles all communication between everything.
 
+## Data Models
+
+There are three primary models in the application. They are User, Product and Order.  <br/>
+
+User Model: <br/>
+Attributes: name (String), email (String), password (String), role (String).
+This model defines what attributes a user will have and contains the email which is unique and the password which is required to login. The role also defines the authority of the user in the application.
+
+Product Model: <br/>
+Attributes: name (String), price (Number), image (String), description (String).
+This model defines what attributes a product will have and contains detailed information that is displayed to the user when purchasing products.
+
+Order Model: <br/>
+Attributes: customerId (Schema.Types.ObjectId), items ([orderedItem] -> product (Product), quantity (Number)). Customer id defines which user created the order. It is reference to User Model's id. The items defines a list of products that are ordered and their quantities. Product refers to the Product Model and its attributes and quantity defines the quantity of the product that was ordered.
+
+
+## Usage
+
+Register: Non-logged in Users can register. If a user is logged in it will respond with 403 (Forbidden). <br/>
+List Products: Logged in users (Admin & Customer) can view product list and add product to cart.<br/>
+Shopping Cart: Logged in users (Admin & Customer) can view cart and make changes to the quantity. Customers can place order. Admins will receive 403 (fordbidden) if they try to place order.<br/>
+Show Orders: Logged in users (Admin & Customer) can view orders. Customers will see only their own orders. Admins will see all the orders <br/>
+List Users: Admins can view the User List and edit user roles. Customers will receive 403 (Forbidden). <br/>
+Create Admin: Admins can create new admins. Customers will receive 403 (Forbidden). <br/>
+Add Products: Admins can add new products. Customers will receive 403 (Forbidden). <br/>
+Modify Products: Admins can modifya and delete products. Customers will receive 403 (Forbidden). <br/>
+
 
 ## Tests and documentation
 
