@@ -41,37 +41,17 @@ const validatorPassword = (val) => {
 	return val.length >= SCHEMA_DEFAULTS.password.minLength && val && val !== '';
 };
 
-// TODO: 9.5 Implement the userSchema
+
 const userSchema = new Schema({
-  // for 'name' 
-  // set type
-  // and the following validators:
-  // required, trim, minlength, maxlength 
+
   name: {
     type: String, trim: true, validate: validatorName, required: true
 },
-  // for 'email'
-  // set type
-  // and the following validators:
-  // required, unique, trim, match
-  // NOTE: unique is not a validator (see mongoose documentation)
-  // TIP: with match validator default value for email can be used and
-  // for checking the email you can use the match() from SCHEMA_DEFAULTS
-
-  //       
+   
   email: {
     type: String, validate: validatorEmail, required: true, index: { unique: true }
 },
-  // for 'password'
-  // set type
-  // and the following validators:
-  // required, minlength
-  // for inspiration for the setter function, see the following comment lines
-  // set: password => {
-  //   if (ENTER CONDITIONS WHERE THE PASSWORD IS NOT VALID) return password;
-  //   return bcrypt.hashSync(ENTER PARAMETERS);
-  // }
-  // 
+
   password: {
     type: String,
     required: true,
@@ -84,10 +64,7 @@ const userSchema = new Schema({
           }
     }
 },
-  // for 'role'
-  // set type
-  // and the following validators:
-  //  required, trim, lowercase, enum,    default
+
   role: {
     type: String, lowercase: true, trim: true, default: SCHEMA_DEFAULTS.role.defaultValue, validate: validatorRole
 }

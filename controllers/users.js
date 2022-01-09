@@ -7,7 +7,6 @@ const responseUtils = require('../utils/responseUtils');
 const User = require('../models/user');
 
 const getAllUsers = async response => {
-  // TODO: 10.2 Implement this
     const allUsers = await User.find({});
     return responseUtils.sendJson(response, allUsers, 200);
 };
@@ -21,7 +20,6 @@ const getAllUsers = async response => {
 
  */
 const deleteUser = async(response, userId, currentUser) => {
-  // TODO: 10.2 Implement this
   if(currentUser.id === userId){
     return responseUtils.badRequest(response, '400 Bad Request');
   }

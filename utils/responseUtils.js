@@ -1,5 +1,4 @@
 const basicAuthChallenge = response => {
-  // TODO: 8.5 Send proper basic authentication challenge headers
   response.setHeader('WWW-Authenticate', 'Basic');
   response.writeHead(401, { 'Content-Type': 'text/plain' });
   return response.end();

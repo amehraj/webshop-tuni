@@ -6,12 +6,7 @@
  * @returns {Array|null} [username, password] or null if header is missing
  */
  const getCredentials = request => {
-  // TODO: 8.5 Parse user credentials from the "Authorization" request header
-  // NOTE: The header is base64 encoded as required by the http standard.
-  //       You need to first decode the header back to its original form ("email:password").
-  //  See: https://attacomsian.com/blog/nodejs-base64-encode-decode
-  //       https://stackabuse.com/encoding-and-decoding-base64-strings-in-node-js/
-  
+
   if(!request.headers.authorization){
     return null;
   }

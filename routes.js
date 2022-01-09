@@ -83,8 +83,6 @@ const handleRequest = async(request, response) => {
   }
 
   if (matchUserId(filePath)) {
-    // TODO: 8.6 Implement view, update and delete a single user by ID (GET, PUT, DELETE)
-    // You can use parseBodyJson(request) from utils/requestUtils.js to parse request body
 
     const methodOfRequest = method.toUpperCase();
     
@@ -237,8 +235,6 @@ const handleRequest = async(request, response) => {
 
   // GET all users
   if (filePath === '/api/users' && method.toUpperCase() === 'GET') {
-
-    // TODO: 8.5 Add authentication (only allowed to users with role "admin")
       const currentUser = await getCurrentUser(request);
       if(!currentUser){
         return responseUtils.basicAuthChallenge(response);
@@ -246,11 +242,6 @@ const handleRequest = async(request, response) => {
       if(currentUser.role === 'customer'){
         return responseUtils.forbidden(response);
       }
-        // TODO 8.4 Replace the current code in this function.
-    // First call getAllUsers() function to fetch the list of users.
-    // Then you can use the sendJson(response, payload, code = 200) from 
-    // ./utils/responseUtils.js to send the response in JSON format.
-    //
     return getAllUsers(response);
   }
 
@@ -260,8 +251,6 @@ const handleRequest = async(request, response) => {
     if (!isJson(request)) {
       return responseUtils.badRequest(response, 'Invalid Content-Type. Expected application/json');
     }
-    // TODO: 8.4 Implement registration
-    // You can use parseBodyJson(request) method from utils/requestUtils.js to parse request body.
     const parsedRequestBody = await parseBodyJson(request);
     const currentUser = await getCurrentUser(request);
     if(parsedRequestBody.isAdminCreation === 'isAdminCreation'){
