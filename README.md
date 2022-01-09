@@ -1,9 +1,9 @@
-# Group 76
+# Tampere University Web Development 1 Course Project: Group 76
 
-Member1:  Ali Mehraj, ali.mehraj@tuni.fi, 50508879, 
+Member1:  Ali Mehraj, ali.mehraj@tuni.fi,
 responsible for: Routes implementation, Controller functions implementation for User, Product & Order, Front-end helper js function implementation for User, Product & Order, Implemention of HTML pages for User, Product & Order, Mocha Tests implementation for coverage, Heroku Deployment with MongoDB Atlas, SonarQube Technical Debt fixation.
 
-Member2:  Anna Knappe, anna.knappe@tuni.fi, 50333099, 
+Member2:  Anna Knappe, anna.knappe@tuni.fi,
 responsible for: CSS and the layout design, Frontpage header image & product images, Responsiveness, Accessibility, Mongoose schemas, JSDoc documentation, GitOps implementation.
 
 
@@ -11,6 +11,7 @@ responsible for: CSS and the layout design, Frontpage header image & product ima
 # WebDev1 coursework assignment
 
 A web shop with vanilla HTML, CSS, Node.js & MongoDB.
+Initial code repository in GitLab.
 
 
 ### The project structure
@@ -84,9 +85,6 @@ A web shop with vanilla HTML, CSS, Node.js & MongoDB.
 
 For the purpose of the exercise, the UI of the webshop is a mock-up to display the back-end functionality and is not intended to function as an actual webshop. The customer and admin features are all visible as separate links in the nav bar, but access to them is restricted based on the current user role. The demonstrated functions include registering a new customer, viewing all products and placing them in cart, viewing the cart and placing an order, and viewing one’s own orders for customers, and additionally adding an admin, viewing all users and modifying their roles, and viewing all orders for admins. 
 
-![usecase](/uploads/ad3a7d8ea0010c1d878ec9ef8d0a339f/usecase.png)
-
-image: Use case diagram for customer and admin users
 
 CUSTOMER LOGIN:
 e-mail: customer@email.com
@@ -128,22 +126,7 @@ Modify Products: Admins can modifya and delete products. Customers will receive 
 
 ## Tests and documentation
 
-Tests are implemented using Mocha to test functionality of the web shop. The tests are located in the test folder in the root directory of the project. We were able to achieve around 97% branch coverage using both Plussa Mocha tests and our own tests. Own tests are located under the subdirectory own in test folder. Some of our tests along with the Gitlab issues are given below:
-
-Issue 1: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/18 (Ensure Product Schema Validation. If price is zero / 0, should respond with error. Test implemented in test/own/productSchema.test.js) <br />
-Issue 2: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/17 (Ensure Product Schema Validation. If price is negative, should respond with error. Test implemented in test/own/productSchema.test.js) <br />
-Issue 3: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/19 (Ensure Order Schema Validation. If quantity is negative, should respond with error. Test implemented in test/own/orderSchema.test.js) <br />
-Issue 4: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/20 (Ensure Order Schema Validation. If items is zero, should respond with error. Test implemented in test/own/orderSchema.test.js) <br />
-Issue 5: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/22 (Ensure blocking of wrong method for register route. If wrong method if given should respond with 405. Test implemented in test/own/ownRoutes.test.js) <br />
-Issue 6: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/23 (Ensure admins can create new admins. Test implemented in test/own/ownRoutes.test.js) <br />
-Issue 7: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/24. (Ensure customers cannot create new admins. Test implemented in test/own/ownRoutes.test.js) <br />
-Issue 8: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/26 (Ensure get All Products respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
-Issue 9: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/25 (Ensure getAllUsers respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
-Issue 10: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/27 (Ensure get All Orders respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
-Issue 11: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/28 (Ensure get single Product respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
-Issue 12: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/30 (Ensure get single User respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
-Issue 13: https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76/-/issues/29 (Ensure get single Order respond with 405 when method of request is not allowed. Test implemented in test/own/ownRoutes.test.js) <br />
-
+Tests are implemented using Mocha to test functionality of the web shop. The tests are located in the test folder in the root directory of the project. We were able to achieve around 97% branch coverage using both Plussa Mocha tests and our own tests. Own tests are located under the subdirectory own in test folder. 
 
 
 ## Security concerns
@@ -154,7 +137,7 @@ Request headers are set with 'Access-Control-Allow-Methods' and 'Access-Control-
 
 ## Instructions to run the application
 
-Run Locally: The application can be cloned using SSH 'git@course-gitlab.tuni.fi:webdev1-autumn-2021/webdev1-group76.git' or HTTPS 'https://course-gitlab.tuni.fi/webdev1-autumn-2021/webdev1-group76.git' to run locally. After cloning, the dependencies need to be installed with 'npm install'. MongoDB needs to be running on the machine to run the application. To start the application the following command needs to be run 'npm start'. (For Dev mode: npm run nodemon). <br />
+Run Locally: The application can be cloned using SSH or HTTPS to run locally. After cloning, the dependencies need to be installed with 'npm install'. MongoDB needs to be running on the machine to run the application. To start the application the following command needs to be run 'npm start'. (For Dev mode: npm run nodemon). <br />
 
 Run in Heroku: The application is already deployed in Heroku: https://webshop-tuni-webdev1.herokuapp.com/   <br />
 The application is connected to MongoDB Atlas and users for both customer and admin are created for usage.  <br />
